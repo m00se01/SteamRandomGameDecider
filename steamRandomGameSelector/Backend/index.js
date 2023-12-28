@@ -12,7 +12,6 @@ let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=$
 
 app.get("/", (req, res) => {
   res.send("HELLO WORLD!");
-  res.send(KEY);
 });
 
 app.get("/api/data", async (req, res) => {
