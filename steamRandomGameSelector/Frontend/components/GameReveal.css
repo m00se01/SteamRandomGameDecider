@@ -1,4 +1,11 @@
 .container {
   height: 200px;
   width: 200px;
+  border: 1px solid white;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+p {
+  font-size: 2rem;
 }

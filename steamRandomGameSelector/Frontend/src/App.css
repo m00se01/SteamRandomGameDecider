@@ -5,15 +5,19 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.steamid {
+  font-size: 24px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.steamidInput {
+  height: 20px;
+  width: 200px;
+  font-size: large;
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+
+.rollCounter {
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
 }
