@@ -1,28 +1,20 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import { GameReveal } from "../components/GameReveal";
+import games from "../src/data/testdata";
 
 function App() {
   const [rollCount, setRollCount] = useState(3);
   const [rolledNum, setRolledNum] = useState(0);
-  // const games = gamelist.length;
 
-  const gamelist = [
-    { appid: 1, name: "Dota 2", icon: "" },
-    { appid: 2, name: "CS 2", icon: "" },
-    { appid: 3, name: "Portal", icon: "" },
-    { appid: 4, name: "Portal 2", icon: "" },
-    { appid: 5, name: "Kenshi", icon: "" },
-    { appid: 6, name: "Persona 4", icon: "" },
-    { appid: 7, name: "Baldurs Gate 3", icon: "" },
-    { appid: 8, name: "Chrono Trigger", icon: "" },
-    { appid: 9, name: "Firewatch", icon: "" },
-  ];
+  //Game Icon Image
+  const [imgUrl, setImgUrl] = useState("");
 
-  const games = gamelist.length;
+  const gamesLength = games.length;
+
   const roll = () => {
     if (rollCount > 0) {
-      setRolledNum(Math.floor(Math.random() * games));
+      setRolledNum(Math.floor(Math.random() * gamesLength));
       setRollCount(rollCount - 1);
     } else {
       alert("no more rolls left");
@@ -37,12 +29,22 @@ function App() {
     <>
       <h1>Choose For Me</h1>
 
-      <GameReveal numRolled={rolledNum} gameTitle={gamelist[rolledNum].name} />
-      <label htmlFor="steamid" className="steamid">
-        Enter Your Steam ID:{" "}
-      </label>
+      <div>
+        <GameReveal
+          numRolled={rolledNum}
+          gameTitle={games[rolledNum].name}
+          appid={games[rolledNum].appid}
+          imgUrl={games[rolledNum].img_icon_url}
+        />
+      </div>
 
-      <input type="text" className="steamidInput" />
+      <div>
+        <label htmlFor="steamid" className="steamid">
+          Enter Your Steam ID:{" "}
+        </label>
+
+        <input type="text" className="steamidInput" />
+      </div>
 
       <p className="rollCounter">Rolls Left: {rollCount} </p>
       <button onClick={resetRoll}>Reset</button>
