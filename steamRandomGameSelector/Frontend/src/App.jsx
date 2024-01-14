@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { GameReveal } from "../components/GameReveal";
+import { GameReveal } from "./components/GameReveal/GameReveal";
 import games from "../src/data/testdata";
+import { Navbar } from "./components/Navbar/Navbar";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
   const [rollCount, setRollCount] = useState(3);
@@ -16,8 +18,6 @@ function App() {
     if (rollCount > 0) {
       setRolledNum(Math.floor(Math.random() * gamesLength));
       setRollCount(rollCount - 1);
-    } else {
-      alert("no more rolls left");
     }
   };
 
@@ -27,7 +27,9 @@ function App() {
 
   return (
     <>
-      <h1>Choose For Me</h1>
+      <Navbar />
+
+      <h1 className="main-title">Let Us Decide Your Fate</h1>
 
       <div>
         <GameReveal
@@ -38,17 +40,38 @@ function App() {
         />
       </div>
 
-      <div>
-        <label htmlFor="steamid" className="steamid">
-          Enter Your Steam ID:{" "}
-        </label>
+      <div className="info-section">
+        <div>
+          <label htmlFor="steamid" className="steamid">
+            Enter Your Steam ID:{" "}
+          </label>
 
-        <input type="text" className="steamidInput" />
+          <input type="text" className="steamid-input" />
+        </div>
+
+        <span>*Note: your steam profile must be set to public </span>
+        <br />
+        <span
+          onMouseEnter={() => {
+            console.log("Where to find your steamid?");
+          }}
+        >
+          <a className="find-steamid" href="#">
+            Find steamid
+          </a>
+        </span>
+        <div className="roll-container">
+          <p className="roll-counter">Rolls Left: {rollCount} </p>
+          <button onClick={resetRoll}>Reset</button>
+          <button className={".rounded-btn"} onClick={roll}>
+            Roll
+          </button>
+        </div>
       </div>
 
-      <p className="rollCounter">Rolls Left: {rollCount} </p>
-      <button onClick={resetRoll}>Reset</button>
-      <button onClick={roll}>Roll</button>
+      {/* <p>Can't Decide what to play? Let us decide for you!</p> */}
+
+      <Footer />
     </>
   );
 }

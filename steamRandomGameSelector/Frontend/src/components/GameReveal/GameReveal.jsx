@@ -8,8 +8,6 @@ export const GameReveal = ({ numRolled, gameTitle, imgUrl, appid }) => {
   let iconUrlTemplate = `http://media.steampowered.com/steamcommunity/public/images/apps/${appid}/${imgUrl}.jpg`;
   let boxArtUrl = `https://steamcdn-a.akamaihd.net/steam/apps/${appid}/library_600x900_2x.jpg`;
 
-  console.log(boxArtUrl);
-
   const [img, setImg] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -58,7 +56,11 @@ export const GameReveal = ({ numRolled, gameTitle, imgUrl, appid }) => {
         {/* TODO: Error Handling, Refactor */}
         <img src={boxArtUrl} alt={gameTitle} className="gameBoxArt" />
 
-        <p>{display}</p>
+        <div className="gameTitleWithIcon">
+          <img src={iconUrlTemplate} alt={gameTitle} className="gameIcon" />
+          <p>{display}</p>
+        </div>
+        {/* <p>{display}</p> */}
       </div>
     </div>
   );

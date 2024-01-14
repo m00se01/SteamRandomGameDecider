@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  width: 50%;
+  border: 3px solid rgb(255, 255, 255);
+  border-radius: 8px;
+
+  padding: 10px;
+  box-shadow: 0px 0px 5px #069cce;
+
+  margin: 10px auto;
+}
+
+.gameBoxArt {
+  margin: 20px auto;
+  height: 400px;
+  box-shadow: 0px 0px 5px white;
+  border-radius: 20px;
+}
+
+.gameTitleWithIcon {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gameIcon {
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px black;
+}
+
+p {
+  font-size: 2rem;
+}
