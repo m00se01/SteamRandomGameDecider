@@ -1,5 +1,6 @@
 import React from "react";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 // import { steamDisclaimerBtn } from "../../assets/SteamDisclaimer.png";
 export const Navbar = () => {
   return (
@@ -13,10 +14,10 @@ export const Navbar = () => {
 
         <ul className="navbar-links">
           <li>
-            <a href="#">*Home</a>
+            <Link to="/home">Home</Link>
           </li>
           <li>
-            <a href="#">*Help</a>
+            <Link to="/help">Help</Link>
           </li>
         </ul>
       </nav>
