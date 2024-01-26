@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./GameReveal.css";
+import { Loading } from "../Loading/Loading";
 
-export const GameReveal = ({ numRolled, gameTitle, imgUrl, appid }) => {
+export const GameReveal = ({ gameTitle, imgUrl, appid, rollCount }) => {
   const [display, setDisplay] = useState("");
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -12,6 +13,7 @@ export const GameReveal = ({ numRolled, gameTitle, imgUrl, appid }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const shuffle = () => {
       let tempDisplay = gameTitle;
       //Keep track of which letter we are on
@@ -40,27 +42,41 @@ export const GameReveal = ({ numRolled, gameTitle, imgUrl, appid }) => {
       }, 50);
     };
 
-    shuffle();
-  }, [numRolled, gameTitle]);
+    const load = () => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    };
 
-  //Get Image
-  // useEffect(() => {}, []);
+    load();
+    shuffle();
+  }, [gameTitle]);
 
   return (
     <div>
       <div className="container">
-        {/* <p>{numRolled}</p> */}
+        {/* TODO: style begin rolling screen */}
+        {rollCount === 3 ? (
+          <p>Click Roll to begin</p>
+        ) : loading ? (
+          <Loading />
+        ) : (
+          <div>
+            <img src={boxArtUrl} alt={gameTitle} className="gameBoxArt" />
+            <div className="gameTitleWithIcon">
+              <img src={iconUrlTemplate} alt={gameTitle} className="gameIcon" />
+              <p>{display}</p>
+            </div>
+          </div>
+        )}
 
-        {/* <img src={imgUrlTemplate} alt={gameTitle} className="gameIcon" /> */}
-
-        {/* TODO: Error Handling, Refactor */}
+        {/* TODO: Error Handling, Refactor
         <img src={boxArtUrl} alt={gameTitle} className="gameBoxArt" />
 
         <div className="gameTitleWithIcon">
           <img src={iconUrlTemplate} alt={gameTitle} className="gameIcon" />
           <p>{display}</p>
-        </div>
-        {/* <p>{display}</p> */}
+        </div> */}
       </div>
     </div>
   );

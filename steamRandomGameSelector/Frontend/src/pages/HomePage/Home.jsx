@@ -6,15 +6,11 @@ import { GameReveal } from "../../components/GameReveal/GameReveal";
 
 export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
-  const [rolledNum, setRolledNum] = useState(0);
   const [appid, setAppid] = useState(0);
   const [gameTitle, setGameTitle] = useState("");
   const [iconUrl, setIconUrl] = useState("");
 
   const apiUrl = "http://localhost:8000/api/randomAll";
-
-  // //Game Icon Image
-  // const [imgUrl, setImgUrl] = useState("");
 
   const roll = async () => {
     if (rollCount > 0) {
@@ -49,17 +45,11 @@ export const Home = () => {
       <h1 className="main-title">Let Us Decide Your Fate</h1>
 
       <div>
-        {/* <GameReveal
-          numRolled={rolledNum}
-          gameTitle={games[rolledNum].name}
-          appid={games[rolledNum].appid}
-          imgUrl={games[rolledNum].img_icon_url}
-        /> */}
         <GameReveal
-          numRolled={rolledNum}
           gameTitle={gameTitle}
           appid={appid}
           imgUrl={iconUrl}
+          rollCount={rollCount}
         />
       </div>
 
@@ -91,8 +81,6 @@ export const Home = () => {
           </button>
         </div>
       </div>
-
-      {/* <p>Can't Decide what to play? Let us decide for you!</p> */}
 
       <Footer />
     </>

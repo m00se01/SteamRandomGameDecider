@@ -1,0 +1,19 @@
+.progress-bar {
+  border: 2px white solid;
+  display: flex;
+  text-align: center;
+  justify-content: start;
+  align-items: center;
+  margin: 0 auto;
+  width: 50vh;
+  border-radius: 1.5em;
+  position: relative;
+}
+
+.inside-bar {
+  background-color: rgba(245, 245, 245, 0.933);
+  border-radius: 1.5em;
+  min-width: 3.5em;
+  font-weight: bold;
+  color: black;
+}
