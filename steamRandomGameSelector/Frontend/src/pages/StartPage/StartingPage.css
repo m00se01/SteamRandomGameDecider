@@ -1,0 +1,62 @@
+.startpage-container {
+  background: radial-gradient(circle, #0f3564, #081d3d);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.startpage-container a {
+  color: white;
+  text-decoration: none;
+}
+
+#steamid-help-link {
+  color: rgb(3, 253, 170);
+  text-decoration: underline;
+}
+
+.startpage-header {
+  margin-top: 80px;
+}
+
+.steamid-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid white;
+  border-radius: 1rem;
+
+  width: 500px;
+  height: 400px;
+
+  margin: 2rem auto;
+  padding: 10px;
+
+  gap: 15px;
+}
+
+.startpage-container input {
+  padding: 3px;
+  font-size: 20px;
+}
+
+.startpage-container label {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 100px;
+  height: 35px;
+  text-align: center;
+  background-color: #0b4c9b;
+  border-radius: 0.5rem;
+  font-size: 20px;
+  font-weight: 500;
+}

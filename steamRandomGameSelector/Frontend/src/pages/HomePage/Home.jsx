@@ -6,15 +6,11 @@ import { GameReveal } from "../../components/GameReveal/GameReveal";
 
 export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
-  const [rolledNum, setRolledNum] = useState(0);
   const [appid, setAppid] = useState(0);
   const [gameTitle, setGameTitle] = useState("");
   const [iconUrl, setIconUrl] = useState("");
 
   const apiUrl = "http://localhost:8000/api/randomAll";
-
-  // //Game Icon Image
-  // const [imgUrl, setImgUrl] = useState("");
 
   const roll = async () => {
     if (rollCount > 0) {
@@ -44,57 +40,51 @@ export const Home = () => {
 
   return (
     <>
-      <Navbar />
+      <div className="home-wrapper">
+        <Navbar />
 
-      <h1 className="main-title">Let Us Decide Your Fate</h1>
+        <h1 className="main-title">Let Us Decide Your Fate</h1>
 
-      <div>
-        {/* <GameReveal
-          numRolled={rolledNum}
-          gameTitle={games[rolledNum].name}
-          appid={games[rolledNum].appid}
-          imgUrl={games[rolledNum].img_icon_url}
-        /> */}
-        <GameReveal
-          numRolled={rolledNum}
-          gameTitle={gameTitle}
-          appid={appid}
-          imgUrl={iconUrl}
-        />
-      </div>
-
-      <div className="info-section">
         <div>
-          <label htmlFor="steamid" className="steamid">
-            Enter Your Steam ID:
-          </label>
-
-          <input type="text" className="steamid-input" />
+          <GameReveal
+            gameTitle={gameTitle}
+            appid={appid}
+            imgUrl={iconUrl}
+            rollCount={rollCount}
+          />
         </div>
 
-        <span>*Note: your steam profile must be set to public </span>
-        <br />
-        <span
-          onMouseEnter={() => {
-            console.log("Where to find your steamid?");
-          }}
-        >
-          <a className="find-steamid" href="#">
-            Find steamid
-          </a>
-        </span>
-        <div className="roll-container">
-          <p className="roll-counter">Rolls Left: {rollCount} </p>
-          <button onClick={resetRoll}>Reset</button>
-          <button className={".rounded-btn"} onClick={roll}>
-            Roll
-          </button>
+        <div className="info-section">
+          <div>
+            <label htmlFor="steamid" className="steamid">
+              Enter Your Steam ID:
+            </label>
+
+            <input type="text" className="steamid-input" />
+          </div>
+
+          <span>*Note: your steam profile must be set to public </span>
+          <br />
+          <span
+            onMouseEnter={() => {
+              console.log("Where to find your steamid?");
+            }}
+          >
+            <a className="find-steamid" href="#">
+              Find steamid
+            </a>
+          </span>
+          <div className="roll-container">
+            <p className="roll-counter">Rolls Left: {rollCount} </p>
+            <button onClick={resetRoll}>Reset</button>
+            <button className={".rounded-btn"} onClick={roll}>
+              Roll
+            </button>
+          </div>
         </div>
+
+        <Footer />
       </div>
-
-      {/* <p>Can't Decide what to play? Let us decide for you!</p> */}
-
-      <Footer />
     </>
   );
 };
