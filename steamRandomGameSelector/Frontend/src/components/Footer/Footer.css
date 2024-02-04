@@ -1,18 +1,19 @@
-footer {
-  /* border: 1px solid white; */
-  margin-top: 100px;
-  display: flex;
-  position: relative;
-  bottom: 0;
+.footer-container {
+  background-color: #020c1c61;
+  overflow-x: hidden;
+  margin-top: auto;
+}
 
-  width: 100%;
+footer {
+  display: flex;
+
+  width: 100vw;
   height: 25vh;
+
   flex-direction: column;
   padding: 20px;
-
   text-align: center;
   justify-content: center;
-  background-color: #020c1c61;
   color: white;
 }
 

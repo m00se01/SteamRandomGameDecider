@@ -40,49 +40,51 @@ export const Home = () => {
 
   return (
     <>
-      <Navbar />
+      <div className="home-wrapper">
+        <Navbar />
 
-      <h1 className="main-title">Let Us Decide Your Fate</h1>
+        <h1 className="main-title">Let Us Decide Your Fate</h1>
 
-      <div>
-        <GameReveal
-          gameTitle={gameTitle}
-          appid={appid}
-          imgUrl={iconUrl}
-          rollCount={rollCount}
-        />
-      </div>
-
-      <div className="info-section">
         <div>
-          <label htmlFor="steamid" className="steamid">
-            Enter Your Steam ID:
-          </label>
-
-          <input type="text" className="steamid-input" />
+          <GameReveal
+            gameTitle={gameTitle}
+            appid={appid}
+            imgUrl={iconUrl}
+            rollCount={rollCount}
+          />
         </div>
 
-        <span>*Note: your steam profile must be set to public </span>
-        <br />
-        <span
-          onMouseEnter={() => {
-            console.log("Where to find your steamid?");
-          }}
-        >
-          <a className="find-steamid" href="#">
-            Find steamid
-          </a>
-        </span>
-        <div className="roll-container">
-          <p className="roll-counter">Rolls Left: {rollCount} </p>
-          <button onClick={resetRoll}>Reset</button>
-          <button className={".rounded-btn"} onClick={roll}>
-            Roll
-          </button>
+        <div className="info-section">
+          <div>
+            <label htmlFor="steamid" className="steamid">
+              Enter Your Steam ID:
+            </label>
+
+            <input type="text" className="steamid-input" />
+          </div>
+
+          <span>*Note: your steam profile must be set to public </span>
+          <br />
+          <span
+            onMouseEnter={() => {
+              console.log("Where to find your steamid?");
+            }}
+          >
+            <a className="find-steamid" href="#">
+              Find steamid
+            </a>
+          </span>
+          <div className="roll-container">
+            <p className="roll-counter">Rolls Left: {rollCount} </p>
+            <button onClick={resetRoll}>Reset</button>
+            <button className={".rounded-btn"} onClick={roll}>
+              Roll
+            </button>
+          </div>
         </div>
+
+        <Footer />
       </div>
-
-      <Footer />
     </>
   );
 };

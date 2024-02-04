@@ -2,6 +2,11 @@
   height: 100vh;
 }
 
+.home-wrapper {
+  background-color: crimson;
+  background: radial-gradient(ellipse at 50% 10%, #032f69, #020c1cee);
+}
+
 .main-title {
   font-family: "Times New Roman", Times, serif;
 }
