@@ -1,20 +1,19 @@
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
+
 require("dotenv").config();
 
 const app = express();
 const port = 8000;
 
+app.use(cors());
+app.use(express.json());
+
 const KEY = process.env.STEAM_API_KEY;
-const STEAMID = process.env.STEAMID;
+let STEAMID = process.env.STEAMID;
 
 let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${KEY}&steamid=${STEAMID}&format=json&include_appinfo=true`;
-app.use(cors());
-
-app.get("/", (req, res) => {
-  res.send("HELLO WORLD!");
-});
 
 app.get("/api/data", async (req, res) => {
   try {
@@ -30,8 +29,11 @@ app.get("/api/data", async (req, res) => {
   }
 });
 
+// Returns a random game from the users entire game library
 app.get("/api/randomAll", async (req, res) => {
   try {
+    let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${KEY}&steamid=${STEAMID}&format=json&include_appinfo=true`;
+
     const apiResponse = await axios.get(url);
 
     if (!apiResponse.data) {
@@ -56,6 +58,21 @@ app.get("/api/randomAll", async (req, res) => {
   } catch (error) {
     console.error("Error: ", error);
     res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/api/steamid", async (req, res) => {
+  try {
+    const steamid = req.body;
+    STEAMID = steamid.steamid;
+
+    // TODO Validate Steamid make sure its an actual steamid not random gibberish or invalid syntax etc.
+
+    console.log(STEAMID);
+    res.status(200).json({ message: "Ok" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

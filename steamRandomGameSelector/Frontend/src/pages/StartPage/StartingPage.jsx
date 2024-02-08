@@ -1,14 +1,40 @@
 import React from "react";
 import "./StartingPage.css";
 import { Footer } from "../../components/Footer/Footer";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate, Navigate } from "react-router-dom";
+
 import { useState } from "react";
 
 export const StartingPage = () => {
   const [steamid, setSteamid] = useState("");
 
+  const apiUrl = "http://localhost:8000/api/steamid";
+
+  const navigate = useNavigate();
+
   const change = (event) => {
     setSteamid(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ steamid }),
+    });
+
+    if (response.ok) {
+      alert("Success");
+      redirect("/home");
+      navigate("/home");
+    } else {
+      console.log(steamid);
+      console.error("Invalid SteamID");
+    }
   };
 
   return (
@@ -19,18 +45,21 @@ export const StartingPage = () => {
         <h2>To get started please enter your Steam ID in the box below</h2>
 
         <div>
-          <label htmlFor="steamid">Steam ID: </label>
-          <input
-            id="steamid"
-            placeholder="XXXXXXXXXXX"
-            type="text"
-            name="steamid"
-            onChange={change}
-            value={steamid}
-          />
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="steamid">Steam ID: </label>
+            <input
+              id="steamid"
+              placeholder="Enter Steam ID"
+              type="text"
+              name="steamid"
+              onChange={change}
+              value={steamid}
+            />
+            <button type="submit">Submit</button>
+          </form>
         </div>
 
-        <Link
+        {/* <Link
           onClick={() => {
             alert(steamid);
           }}
@@ -38,7 +67,7 @@ export const StartingPage = () => {
           to="/home"
         >
           Submit
-        </Link>
+        </Link> */}
       </div>
 
       <p>
