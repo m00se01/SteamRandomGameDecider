@@ -37,7 +37,7 @@ app.get("/api/randomAll", async (req, res) => {
     const apiResponse = await axios.get(url);
 
     if (!apiResponse.data) {
-      res.status(404).json({ error: "Image not found" });
+      res.status(404).json({ error: "Not Found" });
       return;
     }
 
@@ -64,9 +64,46 @@ app.get("/api/randomAll", async (req, res) => {
 app.post("/api/steamid", async (req, res) => {
   try {
     const steamid = req.body;
+    let vanityName = steamid.steamid;
+    const vanityUrl = `http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=${KEY}&vanityurl=${vanityName}`;
+
     STEAMID = steamid.steamid;
 
-    // TODO Validate Steamid make sure its an actual steamid not random gibberish or invalid syntax etc.
+    // Check if vanityurl returns a steamid otherwise, test the raw input to validate the steamid , if both fail then return INVALID ID
+    // vanityurl to steamid
+    try {
+      vanityNameRes = await axios.get(vanityUrl);
+
+      if (!vanityNameRes) {
+        console.log("No Vanity Name Found");
+        res.status(404).json({ error: "UserData Not Found" });
+      }
+
+      if (vanityNameRes.data.response.success == 42) {
+        console.log("No Match Found");
+      }
+
+      if (vanityNameRes.data.response.success == 1) {
+        vanityName = vanityNameRes.data.response.steamid;
+
+        console.log(`Success: 1 ${vanityName}`);
+
+        // Update STEAMID
+        STEAMID = vanityName;
+      }
+
+      console.log(vanityNameRes.data);
+    } catch (error) {
+      console.error(error);
+    }
+
+    // Steam 64bit id encoding
+    // For the purpose of this app and to keep things simple we will only deal with public user id's for the time being:
+    // 76561198#########
+
+    if (steamid.steamid.length != 17) {
+      console.log(`steamid: ${steamid.steamid} Not Valid`);
+    }
 
     console.log(STEAMID);
     res.status(200).json({ message: "Ok" });
