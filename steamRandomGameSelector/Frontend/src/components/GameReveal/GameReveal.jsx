@@ -55,7 +55,6 @@ export const GameReveal = ({ gameTitle, imgUrl, appid, rollCount }) => {
   return (
     <div>
       <div className="container">
-        {/* TODO: style begin rolling screen */}
         {rollCount === 3 ? (
           <p>Click Roll to begin</p>
         ) : loading ? (
@@ -70,13 +69,7 @@ export const GameReveal = ({ gameTitle, imgUrl, appid, rollCount }) => {
           </div>
         )}
 
-        {/* TODO: Error Handling, Refactor
-        <img src={boxArtUrl} alt={gameTitle} className="gameBoxArt" />
-
-        <div className="gameTitleWithIcon">
-          <img src={iconUrlTemplate} alt={gameTitle} className="gameIcon" />
-          <p>{display}</p>
-        </div> */}
+        {/* TODO: Error Handling, Refactor */}
       </div>
     </div>
   );

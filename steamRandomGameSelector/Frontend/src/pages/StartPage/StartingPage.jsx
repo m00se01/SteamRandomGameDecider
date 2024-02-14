@@ -27,10 +27,11 @@ export const StartingPage = () => {
       body: JSON.stringify({ steamid }),
     });
 
+    // Potentially add a popup confirmation to check if the user entered the correct steamid
     if (response.ok) {
-      alert("Success");
-      // redirect("/home");
       navigate("/home");
+    } else if (response.status === 500) {
+      alert("Cannot Access Players Library");
     } else {
       console.log(steamid);
       console.error("Invalid SteamID");
