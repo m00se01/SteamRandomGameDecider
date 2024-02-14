@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import "./Home.css";
 import { Footer } from "../../components/Footer/Footer";
 import { Navbar } from "../../components/Navbar/Navbar";
@@ -6,11 +6,48 @@ import { GameReveal } from "../../components/GameReveal/GameReveal";
 
 export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
+  // Game Data
   const [appid, setAppid] = useState(0);
   const [gameTitle, setGameTitle] = useState("");
   const [iconUrl, setIconUrl] = useState("");
 
+  // Player Info
+  const [playerData, setPlayerData] = useState(null);
+  const [playerName, setPlayerName] = useState("");
+  const [playerAvatar, setPlayerAvatar] = useState("");
+
   const apiUrl = "http://localhost:8000/api/randomAll";
+  const playerInfoUrl = "http://localhost:8000/api/playerInfo";
+
+  useEffect(() => {
+    const fetchPlayerData = async () => {
+      try {
+        const response = await fetch(playerInfoUrl);
+
+        if (!response.ok) {
+          throw new Error("Fetch Error was not ok");
+        }
+
+        const data = await response.json();
+
+        setPlayerData(data);
+      } catch (error) {
+        console.error("Fetch Error: ", error);
+      }
+    };
+
+    fetchPlayerData();
+    console.log(playerData);
+  }, []);
+
+  useEffect(() => {
+    if (playerData === null) {
+      console.log("No player info");
+    } else {
+      setPlayerName(playerData.personaname);
+      setPlayerAvatar(playerData.avatarmedium);
+    }
+  }, [playerData]);
 
   const roll = async () => {
     if (rollCount > 0) {
@@ -55,25 +92,12 @@ export const Home = () => {
         </div>
 
         <div className="info-section">
-          <div>
-            <label htmlFor="steamid" className="steamid">
-              Enter Your Steam ID:
-            </label>
-
-            <input type="text" className="steamid-input" />
+          {/* Avatar and Username */}
+          <div className="profile-info">
+            <img src={playerAvatar} alt="profile-pic" />
+            <span>{playerName}</span>
           </div>
 
-          <span>*Note: your steam profile must be set to public </span>
-          <br />
-          <span
-            onMouseEnter={() => {
-              console.log("Where to find your steamid?");
-            }}
-          >
-            <a className="find-steamid" href="#">
-              Find steamid
-            </a>
-          </span>
           <div className="roll-container">
             <p className="roll-counter">Rolls Left: {rollCount} </p>
             <button onClick={resetRoll}>Reset</button>

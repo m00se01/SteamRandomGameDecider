@@ -27,10 +27,11 @@ export const StartingPage = () => {
       body: JSON.stringify({ steamid }),
     });
 
+    // Potentially add a popup confirmation to check if the user entered the correct steamid
     if (response.ok) {
-      alert("Success");
-      redirect("/home");
       navigate("/home");
+    } else if (response.status === 500) {
+      alert("Cannot Access Players Library");
     } else {
       console.log(steamid);
       console.error("Invalid SteamID");
@@ -49,6 +50,7 @@ export const StartingPage = () => {
             <label htmlFor="steamid">Steam ID: </label>
             <input
               id="steamid"
+              required="true"
               placeholder="Enter Steam ID"
               type="text"
               name="steamid"
@@ -74,7 +76,10 @@ export const StartingPage = () => {
         Please note that inorder to access your game library your steam account
         must be set to public.<br></br> If you need help changing these settings
         please{" "}
-        <a id="steamid-help-link" href="#">
+        <a
+          id="steamid-help-link"
+          href="https://help.steampowered.com/en/faqs/view/2816-BE67-5B69-0FEC"
+        >
           click here
         </a>
       </p>
