@@ -2,7 +2,6 @@ import React from "react";
 import "./StartingPage.css";
 import { Footer } from "../../components/Footer/Footer";
 import { Link, redirect, useNavigate, Navigate } from "react-router-dom";
-
 import { useState } from "react";
 
 export const StartingPage = () => {
@@ -45,20 +44,31 @@ export const StartingPage = () => {
       <div className="steamid-input-container">
         <h2>To get started please enter your Steam ID in the box below</h2>
 
-        <div>
+        <div className="startscreen-form-wrapper">
           <form onSubmit={handleSubmit}>
-            <label htmlFor="steamid">Steam ID: </label>
-            <input
-              id="steamid"
-              required="true"
-              placeholder="Enter Steam ID"
-              type="text"
-              name="steamid"
-              onChange={change}
-              value={steamid}
-            />
-            <button type="submit">Submit</button>
+            <div>
+              {/* <label htmlFor="steamid">Steam ID: </label> */}
+              <input
+                id="steamid"
+                required="true"
+                placeholder="Enter Steam ID"
+                type="text"
+                name="steamid"
+                onChange={change}
+                value={steamid}
+              />
+            </div>
+
+            <button className="submit-btn" type="submit">
+              Submit
+            </button>
           </form>
+
+          <span>
+            <a href="https://help.steampowered.com/en/faqs/view/2816-BE67-5B69-0FEC">
+              Where to find steamid?
+            </a>
+          </span>
         </div>
 
         {/* <Link
@@ -73,8 +83,8 @@ export const StartingPage = () => {
       </div>
 
       <p>
-        Please note that inorder to access your game library your steam account
-        must be set to public.<br></br> If you need help changing these settings
+        Note: Inorder for us to access your game library your steam account must
+        be set to public.<br></br> If you need help changing these settings
         please{" "}
         <a
           id="steamid-help-link"
