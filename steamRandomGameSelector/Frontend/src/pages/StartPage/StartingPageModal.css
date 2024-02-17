@@ -1,0 +1,33 @@
+.Modal {
+  background-color: #e2a90d;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  z-index: 999;
+  top: 8vh;
+  left: 25vw;
+
+  border-radius: 1rem;
+  border: 2px solid white;
+  box-shadow: 1px 1px 3px white;
+  height: 65vh;
+  width: 50vw;
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.Modal .profile {
+  border-radius: 0.5rem;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #121f57ad;
+}
