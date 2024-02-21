@@ -1,6 +1,6 @@
 .Modal {
-  background-color: #e2a90d;
-  color: black;
+  background-color: #2c97ee;
+  color: white;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -21,6 +21,7 @@
 
 .Modal .profile {
   border-radius: 0.5rem;
+  border: 3px solid white;
 }
 
 .Overlay {

@@ -8,35 +8,63 @@
 .startpage-container a {
   color: white;
   text-decoration: none;
+  text-underline-offset: 0.2em;
 }
 
-#steamid-help-link {
-  color: rgb(3, 253, 170);
+.note {
+  color: rgb(253, 250, 250);
+  font-size: 30px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.banner {
+  border: 1px white solid;
+  background-color: #102655bb;
+  display: inline-block;
+  max-width: 50vw;
+
+  margin: 0 auto;
+}
+
+.findSteamIdSpan {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  gap: 5px;
+  cursor: pointer;
   text-decoration: underline;
 }
 
+.infoIcon {
+  color: white;
+  width: 18px;
+  height: 18px;
+}
+
 .startpage-header {
-  margin-top: 80px;
+  margin-top: 20px;
 }
 
 .steamid-input-container {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
+  justify-content: center;
 
   border: 1px solid white;
   border-radius: 1rem;
 
-  width: 500px;
-  height: 400px;
+  width: 50%;
+  height: 450px;
 
   margin: 2rem auto;
-  padding: 10px;
 }
 
 .startscreen-form-wrapper {
-  margin: 50px auto;
+  margin: 5px auto;
 }
 
 .startscreen-form-wrapper form {
@@ -56,6 +84,7 @@ input {
 
 .steamid-input-container input {
   padding: 0.5rem;
+  width: 25vw;
   border-radius: 0.3rem;
   text-align: center;
 }

@@ -1,25 +1,21 @@
 .footer-container {
   background-color: #020c1c61;
   overflow-x: hidden;
+  border-top: 1px solid white;
   margin-top: auto;
 }
 
 footer {
   display: flex;
-
   width: 100vw;
   height: 25vh;
-
   flex-direction: column;
-  padding: 20px;
   text-align: center;
   justify-content: center;
   color: white;
 }
 
 footer p {
-  font-size: 12px;
+  font-size: 20px;
   display: inline-block;
-  line-height: 1.5;
-  font-style: italic;
 }
