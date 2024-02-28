@@ -57,6 +57,7 @@ app.get("/api/randomAll", async (req, res) => {
 
     //Random Num Gen
     let randNum = Math.floor(Math.random() * (gamesCount - 1));
+
     console.log("randNum: " + randNum);
     const game = gamesArray[randNum];
 
@@ -73,9 +74,14 @@ app.get("/api/randomAll", async (req, res) => {
 app.get("/api/playerInfo", async (req, res) => {
   try {
     const getPlayerSummariesUrl = `http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${KEY}&steamids=${STEAMID}`;
+    let getOwnedGamesUrl = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${KEY}&steamid=${STEAMID}&format=json&include_appinfo=true`;
+
     const apiResponse = await axios.get(getPlayerSummariesUrl);
+    const ownGamesResponse = await axios.get(getOwnedGamesUrl);
 
     const data = apiResponse.data.response.players[0];
+
+    // Add Number of Games in Library to PlayerInfo Object
 
     res.status(200).json(data);
     console.log(data.communityvisibilitystate);

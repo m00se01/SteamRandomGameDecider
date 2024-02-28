@@ -7,6 +7,7 @@ import { GameReveal } from "../../components/GameReveal/GameReveal";
 export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
   // Game Data
+  const [gameData, setGameData] = useState(null);
   const [appid, setAppid] = useState(0);
   const [gameTitle, setGameTitle] = useState("");
   const [iconUrl, setIconUrl] = useState("");
@@ -15,10 +16,12 @@ export const Home = () => {
   const [playerData, setPlayerData] = useState(null);
   const [playerName, setPlayerName] = useState("");
   const [playerAvatar, setPlayerAvatar] = useState("");
+  const [totalGames, setTotalGames] = useState(0);
 
   const apiUrl = "http://localhost:8000/api/randomAll";
   const playerInfoUrl = "http://localhost:8000/api/playerInfo";
 
+  // Fetch Player Data
   useEffect(() => {
     const fetchPlayerData = async () => {
       try {
@@ -45,9 +48,34 @@ export const Home = () => {
       console.log("No player info");
     } else {
       setPlayerName(playerData.personaname);
-      setPlayerAvatar(playerData.avatarmedium);
+      setPlayerAvatar(playerData.avatarfull);
     }
   }, [playerData]);
+
+  // Fetch Game Data
+  useEffect(() => {
+    async () => {
+      try {
+        const response = await fetch(apiUrl);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setGameData(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Fetch Error: ", error);
+      }
+    };
+  }, [gameData]);
+
+  // useEffect(() => {
+  //   if(gameData != null){
+  //     setTotalGames(data.)
+  //   }
+  // }, [playerData]);
 
   const roll = async () => {
     if (rollCount > 0) {
@@ -82,22 +110,34 @@ export const Home = () => {
 
         <h1 className="main-title">Let Us Decide Your Fate</h1>
 
-        <div>
+        <div className="hompage-main-content-section">
+          <div className="user-info-section">
+            {/* Avatar and Username */}
+            <div className="profile-info">
+              <img src={playerAvatar} alt="profile-pic" />
+              <span>{playerName}</span>
+            </div>
+
+            <p>Games in library: {totalGames}</p>
+
+            {/* Switch accounts implementation */}
+            <button>Switch Accounts</button>
+          </div>
+
           <GameReveal
             gameTitle={gameTitle}
             appid={appid}
             imgUrl={iconUrl}
             rollCount={rollCount}
           />
+
+          <div className="filters-container">
+            <h2>Filters:</h2>
+            <li>Hours Played</li>
+          </div>
         </div>
 
         <div className="info-section">
-          {/* Avatar and Username */}
-          <div className="profile-info">
-            <img src={playerAvatar} alt="profile-pic" />
-            <span>{playerName}</span>
-          </div>
-
           <div className="roll-container">
             <p className="roll-counter">Rolls Left: {rollCount} </p>
             <button onClick={resetRoll}>Reset</button>

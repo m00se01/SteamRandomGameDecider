@@ -1,10 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Saira%20Condensed:700|Saira%20Condensed:400");
+
 * {
   box-sizing: border-box;
 }
 
+:root {
+  --text: #ebedf0;
+  --text-dark: #071c36;
+
+  --background: #071c36;
+  --primary: #a3b5cb;
+  --secondary: #324b69;
+  --accent: #f3c52a;
+
+  --linearBackgroundAccent: linear-gradient(#071c36, #f3c52a);
+  --radialAccentBackground: radial-gradient(
+    circle at center,
+    #f3c52a,
+    #031b3a,
+    #071c36
+  );
+}
+
 body {
-  font-family: "Times New Roman", Times, serif;
-  color: white;
+  background-color: var(--background);
+  font-family: "Saira Condensed";
+  font-weight: 400;
+  color: var(--text);
   text-align: center;
   margin: 0;
   display: flex;
@@ -12,9 +34,42 @@ body {
   min-height: 100vh;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Saira Condensed";
+  font-weight: 700;
+}
+
+html {
+  font-size: 100%;
+} /* 16px */
+
 h1 {
-  font-size: 55px;
+  font-size: 4.21rem; /* 67.36px */
   margin: 0;
+}
+
+h2 {
+  font-size: 3.158rem; /* 50.56px */
+}
+
+h3 {
+  font-size: 2.369rem; /* 37.92px */
+}
+
+h4 {
+  font-size: 1.777rem; /* 28.48px */
+}
+
+h5 {
+  font-size: 1.333rem; /* 21.28px */
+}
+
+small {
+  font-size: 0.75rem; /* 12px */
 }
 
 p {
@@ -22,17 +77,18 @@ p {
 }
 
 button {
-  background-color: #12439f;
+  background-color: var(--accent);
+  color: var(--background);
+  font-weight: 800;
 
   padding: 10px 20px;
   margin: 5px;
   border: none;
 
-  color: white;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 20px;
   cursor: pointer;
 
   border-radius: 8px;
@@ -41,6 +97,7 @@ button {
 
 button:hover {
   background-color: #1560b6;
+  color: white;
 }
 
 span {

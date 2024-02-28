@@ -4,20 +4,19 @@
   justify-content: center;
   align-items: center;
 
+  min-width: 40vw;
   width: 50%;
-  height: 560px;
+  height: 500px;
   border: 3px solid rgb(255, 255, 255);
-  border-radius: 8px;
+  border-radius: 1rem;
 
   padding: 10px;
   box-shadow: 0px 0px 5px #069cce;
-
-  margin: 10px auto;
 }
 
 .gameBoxArt {
   margin: 20px auto;
-  height: 400px;
+  height: 300px;
   box-shadow: 0px 0px 5px white;
   border-radius: 20px;
 }

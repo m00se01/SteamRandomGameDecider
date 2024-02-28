@@ -3,12 +3,37 @@
 }
 
 .home-wrapper {
-  background-color: crimson;
-  background: radial-gradient(ellipse at 50% 10%, #032f69, #020c1cee);
+  background-color: var(--background);
 }
 
-.main-title {
-  font-family: "Times New Roman", Times, serif;
+/* .main-title {
+  margin: 0px;
+} */
+
+.hompage-main-content-section {
+  margin: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-info-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 1rem;
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
+
+.filters-container {
+  border: 2px solid white;
+  border-radius: 1rem;
+  position: relative;
+  width: 500px;
+  height: 500px;
 }
 
 .steamid {
@@ -21,6 +46,10 @@
   font-size: large;
 }
 
+.roll-container {
+  background-color: var(--background);
+}
+
 .roll-counter {
   font-size: 24px;
   text-align: center;
@@ -29,11 +58,15 @@
 }
 
 .info-section {
+  background-color: var(--background);
   display: flex;
-  border: 1px solid white;
-  border-radius: 10px;
-  margin: 35px auto;
-  width: fit-content;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 1rem;
+  margin: 15px auto;
+  width: 500px;
+  height: 300px;
   padding: 20px;
 }
 

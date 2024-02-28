@@ -6,11 +6,15 @@ export const Footer = () => {
     <div className="footer-container">
       <footer>
         <p>Copyright steamroll &copy; 2024 </p>
-        <p>This Site is not associated with Steam/Valve software.</p>
+        <p>
+          This Site is not associated with Steam/Valve software. Steam is a
+          trademark of Valve Corporation. All game logos are property of their
+          respective owners
+        </p>
         <p>
           If you would like to report an issue or feedback you can do so{" "}
           <a
-            style={{ color: "greenyellow", textDecoration: "underline" }}
+            style={{ color: "var(--accent)", textDecoration: "underline" }}
             href="#"
           >
             here

@@ -10,7 +10,6 @@ import parseSteamUrl from "../../utils/utils";
 export const StartingPage = () => {
   const [steamid, setSteamid] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [isLoading, setIsLoading] = useState(false);
 
   // UserData
@@ -24,31 +23,31 @@ export const StartingPage = () => {
 
   // Fetch
   // Would making a generic get, post etc function be useful?
-  const fetchPlayerData = async () => {
-    try {
-      const response = await fetch(playerInfoUrl);
 
-      if (!response.ok) {
-        throw new Error("Fetch Error was not ok");
+  useEffect(() => {
+    const fetchPlayerData = async () => {
+      try {
+        const response = await fetch(playerInfoUrl);
+
+        if (!response.ok) {
+          throw new Error("Fetch Error was not ok");
+        }
+
+        const data = await response.json();
+
+        setPlayerData(data);
+      } catch (error) {
+        console.error("Fetch Error: ", error);
       }
-
-      const data = await response.json();
-
-      setPlayerData(data);
-    } catch (error) {
-      console.error("Fetch Error: ", error);
-    }
-  };
+    };
+    fetchPlayerData();
+  }, [isModalOpen]);
 
   const change = (event) => {
     setSteamid(event.target.value);
   };
 
   const handleSubmit = async (event) => {
-    // if (parseSteamUrl(steamid) != false) {
-    //   setSteamid(parseSteamUrl(steamid));
-    // }
-
     event.preventDefault();
 
     const response = await fetch(apiUrl, {
@@ -75,10 +74,11 @@ export const StartingPage = () => {
     window.open(url, "_blank");
   };
 
-  useEffect(() => {
-    fetchPlayerData();
-  }, [isModalOpen]);
+  // useEffect(() => {
+  //   fetchPlayerData();
+  // }, [isModalOpen]);
 
+  // Parse Steam Community Url
   useEffect(() => {
     setTimeout(() => {
       if (parseSteamUrl(steamid) != false) {
@@ -91,10 +91,12 @@ export const StartingPage = () => {
     <div className="startpage-container">
       <h1 className="startpage-header">Welcome to SteamRoll</h1>
 
-      <h2>Can&apos;t decide what to play? Let us handle it</h2>
+      {/* <h2>Can&apos;t decide what to play? Let us handle it</h2> */}
 
       <div className="steamid-input-container">
-        <h2>To get started please enter your steamid in the box below</h2>
+        <h2 className="steamid-input-container-header">
+          To get started please enter your steamid in the box below
+        </h2>
 
         <div className="startscreen-form-wrapper">
           <form onSubmit={handleSubmit}>
@@ -136,6 +138,8 @@ export const StartingPage = () => {
       <ReactModal
         className={"Modal"}
         overlayClassName={"Overlay"}
+        contentLabel={"Confirmation Modal"}
+        shouldCloseOnEsc={true}
         isOpen={isModalOpen}
         onAfterOpen={useEffect(() => {
           if (playerData === null) {
