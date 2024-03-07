@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./GameReveal.css";
 import { Loading } from "../Loading/Loading";
 
@@ -9,11 +9,17 @@ export const GameReveal = ({ gameTitle, imgUrl, appid, rollCount }) => {
   let iconUrlTemplate = `http://media.steampowered.com/steamcommunity/public/images/apps/${appid}/${imgUrl}.jpg`;
   let boxArtUrl = `https://steamcdn-a.akamaihd.net/steam/apps/${appid}/library_600x900_2x.jpg`;
 
-  const [img, setImg] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
+
+    const load = () => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    };
+
     const shuffle = () => {
       let tempDisplay = gameTitle;
       //Keep track of which letter we are on
@@ -42,18 +48,12 @@ export const GameReveal = ({ gameTitle, imgUrl, appid, rollCount }) => {
       }, 50);
     };
 
-    const load = () => {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
-    };
-
     load();
     shuffle();
   }, [gameTitle]);
 
   return (
-    <div>
+    <>
       <div className="container">
         {rollCount === 3 ? (
           <p>Click Roll to begin</p>
@@ -68,9 +68,7 @@ export const GameReveal = ({ gameTitle, imgUrl, appid, rollCount }) => {
             </div>
           </div>
         )}
-
-        {/* TODO: Error Handling, Refactor */}
       </div>
-    </div>
+    </>
   );
 };

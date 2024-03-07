@@ -71,12 +71,6 @@ export const Home = () => {
     };
   }, [gameData]);
 
-  // useEffect(() => {
-  //   if(gameData != null){
-  //     setTotalGames(data.)
-  //   }
-  // }, [playerData]);
-
   const roll = async () => {
     if (rollCount > 0) {
       try {

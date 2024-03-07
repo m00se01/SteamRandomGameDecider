@@ -1,10 +1,7 @@
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Loading.css";
 export const Loading = () => {
   const [progress, setProgress] = useState(0);
-  const [running, setRunning] = useState(true);
-
-  const fill = () => {};
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -14,10 +11,8 @@ export const Loading = () => {
       });
     }, 15);
 
-    return () => clearInterval();
+    return () => clearInterval(interval);
   }, []);
-
-  fill();
 
   return (
     // Loading bar
