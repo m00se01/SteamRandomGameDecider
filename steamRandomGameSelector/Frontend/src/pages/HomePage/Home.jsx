@@ -1,21 +1,17 @@
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Home.css";
 import { Footer } from "../../components/Footer/Footer";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { GameReveal } from "../../components/GameReveal/GameReveal";
+import { Filters } from "../../components/Filters/Filters";
+import { Stats } from "../../components/Stats/Stats";
 
 export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
-  // Game Data
-  const [gameData, setGameData] = useState(null);
-  const [appid, setAppid] = useState(0);
-  const [gameTitle, setGameTitle] = useState("");
-  const [iconUrl, setIconUrl] = useState("");
 
-  // Player Info
+  const [gameData, setGameData] = useState({});
   const [playerData, setPlayerData] = useState(null);
-  const [playerName, setPlayerName] = useState("");
-  const [playerAvatar, setPlayerAvatar] = useState("");
+
   const [totalGames, setTotalGames] = useState(0);
 
   const apiUrl = "http://localhost:8000/api/randomAll";
@@ -42,15 +38,6 @@ export const Home = () => {
     fetchPlayerData();
     console.log(playerData);
   }, []);
-
-  useEffect(() => {
-    if (playerData === null) {
-      console.log("No player info");
-    } else {
-      setPlayerName(playerData.personaname);
-      setPlayerAvatar(playerData.avatarfull);
-    }
-  }, [playerData]);
 
   // Fetch Game Data
   useEffect(() => {
@@ -81,12 +68,9 @@ export const Home = () => {
         }
 
         const data = await response.json();
-        setAppid(data.appid);
-        setGameTitle(data.name);
-        setIconUrl(data.img_icon_url);
+        setGameData(data);
         setRollCount(rollCount - 1);
-        console.log(data);
-        console.log(gameTitle, appid, iconUrl);
+        console.log(gameData);
       } catch (error) {
         console.error("Fetch Error: ", error);
       }
@@ -104,34 +88,27 @@ export const Home = () => {
 
         <h1 className="main-title">Let Us Decide Your Fate</h1>
 
-        <div className="hompage-main-content-section">
-          <div className="user-info-section">
+        <main className="hompage-main-content-section">
+          <div className="box-container user-info-section">
             {/* Avatar and Username */}
-            <div className="profile-info">
-              <img src={playerAvatar} alt="profile-pic" />
-              <span>{playerName}</span>
-            </div>
+            {playerData && (
+              <div className="profile-info">
+                <img src={playerData.avatarfull} alt="profile-pic" />
+                <span>{playerData.personaname}</span>
+              </div>
+            )}
 
             <p>Games in library: {totalGames}</p>
 
             {/* Switch accounts implementation */}
             <button>Switch Accounts</button>
           </div>
+          {gameData && <GameReveal gameData={gameData} rollCount={rollCount} />}
 
-          <GameReveal
-            gameTitle={gameTitle}
-            appid={appid}
-            imgUrl={iconUrl}
-            rollCount={rollCount}
-          />
+          <Stats />
+        </main>
 
-          <div className="filters-container">
-            <h2>Filters:</h2>
-            <li>Hours Played</li>
-          </div>
-        </div>
-
-        <div className="info-section">
+        <div className="box-container roll-content">
           <div className="roll-container">
             <p className="roll-counter">Rolls Left: {rollCount} </p>
             <button onClick={resetRoll}>Reset</button>

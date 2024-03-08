@@ -39,4 +39,8 @@ const parseSteamUrl = (url) => {
   }
 };
 
-export default parseSteamUrl;
+const fetchPlayerData = () => {};
+
+const fetchGameData = () => {};
+
+export default { parseSteamUrl, fetchGameData, fetchPlayerData };

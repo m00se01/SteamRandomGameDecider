@@ -104,3 +104,8 @@ span {
   font-size: 15px;
   line-height: 1.5;
 }
+
+.box-container {
+  border: 2px solid white;
+  border-radius: 1rem;
+}
