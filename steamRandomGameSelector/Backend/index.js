@@ -31,6 +31,22 @@ app.get("/api/data", async (req, res) => {
   }
 });
 
+app.get("/api/data/gamesCount", async (req, res) => {
+  try {
+    let url = `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=${KEY}&steamid=${STEAMID}&format=json&include_appinfo=true`;
+
+    const apiResponse = await axios.get(url);
+
+    const gamesCount = apiResponse.data.response.game_count;
+
+    console.log(gamesCount);
+    res.json(gamesCount);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "internal Server Error" });
+  }
+});
+
 // Returns a random game from the users entire game library
 app.get("/api/randomAll", async (req, res) => {
   try {

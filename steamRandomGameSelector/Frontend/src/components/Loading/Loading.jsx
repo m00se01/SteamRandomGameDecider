@@ -9,7 +9,7 @@ export const Loading = () => {
         const newProgress = prevProgress + 1;
         return newProgress > 100 ? 100 : newProgress; // Cap the progress at 100%
       });
-    }, 15);
+    }, 10);
 
     return () => clearInterval(interval);
   }, []);

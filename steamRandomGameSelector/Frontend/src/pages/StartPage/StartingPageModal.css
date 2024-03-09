@@ -1,5 +1,5 @@
 .Modal {
-  background-color: #082b58;
+  background-color: var(--background);
   color: white;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #082b58;
+  background-color: var(--background);
 }
 
 .Overlay--before-close {

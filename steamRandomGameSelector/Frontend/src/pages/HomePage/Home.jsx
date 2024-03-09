@@ -5,17 +5,19 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { GameReveal } from "../../components/GameReveal/GameReveal";
 import { Filters } from "../../components/Filters/Filters";
 import { Stats } from "../../components/Stats/Stats";
+import { SwitchAccountsModal } from "../../components/SwitchAccountsModal/SwitchAccountsModal";
 
 export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
 
   const [gameData, setGameData] = useState({});
   const [playerData, setPlayerData] = useState(null);
-
   const [totalGames, setTotalGames] = useState(0);
+  const [isAccountModalOpen, setAccountModal] = useState(false);
 
   const apiUrl = "http://localhost:8000/api/randomAll";
   const playerInfoUrl = "http://localhost:8000/api/playerInfo";
+  const gamesCountUrl = "http://localhost:8000/api/data/gamesCount";
 
   // Fetch Player Data
   useEffect(() => {
@@ -38,6 +40,25 @@ export const Home = () => {
     fetchPlayerData();
     console.log(playerData);
   }, []);
+
+  useEffect(() => {
+    const gamesCount = async () => {
+      try {
+        const response = await fetch(gamesCountUrl);
+
+        if (!response.ok) {
+          throw new Error("Fetch Error was not ok");
+        }
+
+        const data = await response.json();
+
+        setTotalGames(data);
+      } catch (error) {
+        console.error("Fetch Error: ", error);
+      }
+    };
+    gamesCount();
+  }, [playerData]);
 
   // Fetch Game Data
   useEffect(() => {
@@ -81,6 +102,11 @@ export const Home = () => {
     setRollCount(3);
   };
 
+  const toggleAccountModal = () => {
+    setAccountModal((prev) => !prev);
+    console.log(isAccountModalOpen);
+  };
+
   return (
     <>
       <div className="home-wrapper">
@@ -101,11 +127,16 @@ export const Home = () => {
             <p>Games in library: {totalGames}</p>
 
             {/* Switch accounts implementation */}
-            <button>Switch Accounts</button>
+            <button onClick={toggleAccountModal}>Switch Accounts</button>
           </div>
           {gameData && <GameReveal gameData={gameData} rollCount={rollCount} />}
-
           <Stats />
+
+          <SwitchAccountsModal
+            toggleModal={toggleAccountModal}
+            isOpen={isAccountModalOpen}
+            isClosed={isAccountModalOpen}
+          />
         </main>
 
         <div className="box-container roll-content">

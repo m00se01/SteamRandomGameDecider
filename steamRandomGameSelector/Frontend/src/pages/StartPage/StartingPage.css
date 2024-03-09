@@ -1,11 +1,12 @@
 .startpage-container {
   /* background: var(--radialAccentBackground); */
-  background-image: url("../src/assets/clouds.svg");
+  /* background-image: url("../src/assets/clouds.svg"); */
   background-position: 0 35vh;
   background-repeat: repeat-x;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .startpage-container a {
