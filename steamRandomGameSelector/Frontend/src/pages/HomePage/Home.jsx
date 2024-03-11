@@ -6,6 +6,9 @@ import { GameReveal } from "../../components/GameReveal/GameReveal";
 import { Filters } from "../../components/Filters/Filters";
 import { Stats } from "../../components/Stats/Stats";
 import { SwitchAccountsModal } from "../../components/SwitchAccountsModal/SwitchAccountsModal";
+import parseSteamUrl from "../../utils/utils";
+import { AccountInput } from "../../components/AccountInput/AccountInput";
+import ReactModal from "react-modal";
 
 export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
@@ -14,32 +17,34 @@ export const Home = () => {
   const [playerData, setPlayerData] = useState(null);
   const [totalGames, setTotalGames] = useState(0);
   const [isAccountModalOpen, setAccountModal] = useState(false);
+  const [steamid, setSteamid] = useState("");
 
+  const steamidApiUrl = "http://localhost:8000/api/steamid";
   const apiUrl = "http://localhost:8000/api/randomAll";
   const playerInfoUrl = "http://localhost:8000/api/playerInfo";
   const gamesCountUrl = "http://localhost:8000/api/data/gamesCount";
 
   // Fetch Player Data
-  useEffect(() => {
-    const fetchPlayerData = async () => {
-      try {
-        const response = await fetch(playerInfoUrl);
 
-        if (!response.ok) {
-          throw new Error("Fetch Error was not ok");
-        }
+  const fetchPlayerData = async () => {
+    try {
+      const response = await fetch(playerInfoUrl);
 
-        const data = await response.json();
-
-        setPlayerData(data);
-      } catch (error) {
-        console.error("Fetch Error: ", error);
+      if (!response.ok) {
+        throw new Error("Fetch Error was not ok");
       }
-    };
 
+      const data = await response.json();
+
+      setPlayerData(data);
+    } catch (error) {
+      console.error("Fetch Error: ", error);
+    }
+  };
+  useEffect(() => {
     fetchPlayerData();
     console.log(playerData);
-  }, []);
+  }, [steamid]);
 
   useEffect(() => {
     const gamesCount = async () => {
@@ -58,7 +63,7 @@ export const Home = () => {
       }
     };
     gamesCount();
-  }, [playerData]);
+  }, [playerData, steamid]);
 
   // Fetch Game Data
   useEffect(() => {
@@ -77,7 +82,7 @@ export const Home = () => {
         console.error("Fetch Error: ", error);
       }
     };
-  }, [gameData]);
+  }, [gameData, steamid]);
 
   const roll = async () => {
     if (rollCount > 0) {
@@ -107,6 +112,33 @@ export const Home = () => {
     console.log(isAccountModalOpen);
   };
 
+  const handleSubmit = async (steamid) => {
+    const response = await fetch(steamidApiUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ steamid }),
+    });
+
+    if (response.ok) {
+      setAccountModal(false);
+      fetchPlayerData();
+    } else if (response.status === 500) {
+      alert("Cannot Access Players Library");
+    } else {
+      console.error("Invalid SteamID");
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (parseSteamUrl(steamid) != false) {
+        setSteamid(parseSteamUrl(steamid));
+      }
+    }, 150);
+  }, [steamid]);
+
   return (
     <>
       <div className="home-wrapper">
@@ -132,11 +164,21 @@ export const Home = () => {
           {gameData && <GameReveal gameData={gameData} rollCount={rollCount} />}
           <Stats />
 
-          <SwitchAccountsModal
-            toggleModal={toggleAccountModal}
+          <ReactModal
+            className={"Modal"}
+            overlayClassName={"Overlay"}
+            contentLabel={"Confirmation Modal"}
+            shouldCloseOnEsc={true}
             isOpen={isAccountModalOpen}
-            isClosed={isAccountModalOpen}
-          />
+          >
+            <div>
+              <h1>Switch Accounts</h1>
+
+              <AccountInput onSubmit={handleSubmit} />
+
+              <button onClick={toggleAccountModal}>Close</button>
+            </div>
+          </ReactModal>
         </main>
 
         <div className="box-container roll-content">

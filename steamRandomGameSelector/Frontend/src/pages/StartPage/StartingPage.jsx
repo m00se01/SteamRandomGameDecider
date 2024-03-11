@@ -2,11 +2,11 @@ import "./StartingPage.css";
 import "./StartingPageModal.css";
 import { Footer } from "../../components/Footer/Footer";
 import { Link, redirect, useNavigate, Navigate } from "react-router-dom";
-import { React, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactModal from "react-modal";
 import infoIcon from "../../assets/infoIcon.svg";
-import parseSteamUrl from "../../utils/utils";
 import { Loading } from "../../components/Loading/Loading";
+import { AccountInput } from "../../components/AccountInput/AccountInput";
 
 export const StartingPage = () => {
   const [steamid, setSteamid] = useState("");
@@ -18,7 +18,7 @@ export const StartingPage = () => {
   const [avatar, setPlayerAvatar] = useState("");
   const [playerName, setPlayerName] = useState("");
 
-  const apiUrl = "http://localhost:8000/api/steamid";
+  const steamidApiUrl = "http://localhost:8000/api/steamid";
   const playerInfoUrl = "http://localhost:8000/api/playerInfo";
   const navigate = useNavigate();
 
@@ -44,14 +44,8 @@ export const StartingPage = () => {
     fetchPlayerData();
   }, [isModalOpen]);
 
-  const change = (event) => {
-    setSteamid(event.target.value);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const response = await fetch(apiUrl, {
+  const handleSubmit = async (steamid) => {
+    const response = await fetch(steamidApiUrl, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -59,13 +53,11 @@ export const StartingPage = () => {
       body: JSON.stringify({ steamid }),
     });
 
-    // Potentially add a popup confirmation to check if the user entered the correct steamid
     if (response.ok) {
       setIsModalOpen(true);
     } else if (response.status === 500) {
       alert("Cannot Access Players Library");
     } else {
-      console.log(steamid);
       console.error("Invalid SteamID");
     }
   };
@@ -73,15 +65,6 @@ export const StartingPage = () => {
   const openNewWindow = (url) => {
     window.open(url, "_blank");
   };
-
-  // Parse Steam Community Url
-  useEffect(() => {
-    setTimeout(() => {
-      if (parseSteamUrl(steamid) != false) {
-        setSteamid(parseSteamUrl(steamid));
-      }
-    }, 150);
-  }, [steamid]);
 
   return (
     <>
@@ -93,10 +76,10 @@ export const StartingPage = () => {
             To get started please enter your steamid in the box below
           </h2>
 
-          <div className="startscreen-form-wrapper">
+          {/* <div className="startscreen-form-wrapper">
             <form onSubmit={handleSubmit}>
               <div>
-                {/* <label htmlFor="steamid">Steam ID: </label> */}
+                {/* <label htmlFor="steamid">Steam ID: </label> }
                 <input
                   id="steamid"
                   required="true"
@@ -111,22 +94,21 @@ export const StartingPage = () => {
               <button className="submit-btn" type="submit">
                 Submit
               </button>
-            </form>
-
-            <a
-              href="#"
-              onClick={() =>
-                openNewWindow(
-                  "https://help.steampowered.com/en/faqs/view/2816-BE67-5B69-0FEC"
-                )
-              }
-            >
-              <div className="findSteamIdSpan">
-                Where to find your steamid?
-                <img className="infoIcon" src={infoIcon} alt="info-icon" />
-              </div>
-            </a>
-          </div>
+            </form> */}
+          <AccountInput onSubmit={handleSubmit} />
+          <a
+            href="#"
+            onClick={() =>
+              openNewWindow(
+                "https://help.steampowered.com/en/faqs/view/2816-BE67-5B69-0FEC"
+              )
+            }
+          >
+            <div className="findSteamIdSpan">
+              Where to find your steamid?
+              <img className="infoIcon" src={infoIcon} alt="info-icon" />
+            </div>
+          </a>
         </div>
 
         {/* Confirmation Modal */}
