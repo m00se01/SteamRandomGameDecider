@@ -1,6 +1,29 @@
 .stats-content {
   display: flex;
-  text-align: center;
   align-items: center;
   flex-direction: column;
+}
+
+.stats-table {
+  border: 2px solid white;
+  border-collapse: collapse;
+  border-radius: 0.5rem;
+  text-align: center;
+  width: 75%;
+}
+
+.stats-table th {
+  font-size: 25px;
+  text-align: left;
+  padding: 10px;
+}
+
+.stats-table td {
+  font-size: 20px;
+  padding: 10px;
+}
+
+.stats-table tr:nth-child(even) {
+  color: var(--background);
+  background-color: var(--accent);
 }

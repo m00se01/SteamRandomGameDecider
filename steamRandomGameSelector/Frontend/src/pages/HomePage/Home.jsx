@@ -5,7 +5,6 @@ import { Navbar } from "../../components/Navbar/Navbar";
 import { GameReveal } from "../../components/GameReveal/GameReveal";
 import { Filters } from "../../components/Filters/Filters";
 import { Stats } from "../../components/Stats/Stats";
-import { SwitchAccountsModal } from "../../components/SwitchAccountsModal/SwitchAccountsModal";
 import parseSteamUrl from "../../utils/utils";
 import { AccountInput } from "../../components/AccountInput/AccountInput";
 import ReactModal from "react-modal";
@@ -16,7 +15,7 @@ export const Home = () => {
   const [gameData, setGameData] = useState({});
   const [playerData, setPlayerData] = useState(null);
   const [totalGames, setTotalGames] = useState(0);
-  const [isAccountModalOpen, setAccountModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [steamid, setSteamid] = useState("");
 
   const steamidApiUrl = "http://localhost:8000/api/steamid";
@@ -41,6 +40,7 @@ export const Home = () => {
       console.error("Fetch Error: ", error);
     }
   };
+
   useEffect(() => {
     fetchPlayerData();
     console.log(playerData);
@@ -63,7 +63,7 @@ export const Home = () => {
       }
     };
     gamesCount();
-  }, [playerData, steamid]);
+  }, [playerData, gameData, steamid]);
 
   // Fetch Game Data
   useEffect(() => {
@@ -82,7 +82,7 @@ export const Home = () => {
         console.error("Fetch Error: ", error);
       }
     };
-  }, [gameData, steamid]);
+  }, [gameData, playerData, steamid]);
 
   const roll = async () => {
     if (rollCount > 0) {
@@ -108,9 +108,15 @@ export const Home = () => {
   };
 
   const toggleAccountModal = () => {
-    setAccountModal((prev) => !prev);
-    console.log(isAccountModalOpen);
+    setIsModalOpen((prev) => !prev);
+    console.log(isModalOpen);
   };
+
+  // Game stats
+  // Achievments
+  // const getAchievments = () =>{
+
+  // }
 
   const handleSubmit = async (steamid) => {
     const response = await fetch(steamidApiUrl, {
@@ -122,7 +128,7 @@ export const Home = () => {
     });
 
     if (response.ok) {
-      setAccountModal(false);
+      setIsModalOpen(false);
       fetchPlayerData();
     } else if (response.status === 500) {
       alert("Cannot Access Players Library");
@@ -162,14 +168,22 @@ export const Home = () => {
             <button onClick={toggleAccountModal}>Switch Accounts</button>
           </div>
           {gameData && <GameReveal gameData={gameData} rollCount={rollCount} />}
-          <Stats />
+          <Stats playtime={gameData ? gameData.playtime_forever : 0} />
 
           <ReactModal
             className={"Modal"}
-            overlayClassName={"Overlay"}
+            overlayClassName={
+              isModalOpen
+                ? "Overlay Overlay--after-open"
+                : "Overlay Overlay--before-close"
+            }
             contentLabel={"Confirmation Modal"}
             shouldCloseOnEsc={true}
-            isOpen={isAccountModalOpen}
+            isOpen={isModalOpen}
+            closeTimeoutMS={300}
+            onRequestClose={() => {
+              setIsModalOpen(false);
+            }}
           >
             <div>
               <h1>Switch Accounts</h1>

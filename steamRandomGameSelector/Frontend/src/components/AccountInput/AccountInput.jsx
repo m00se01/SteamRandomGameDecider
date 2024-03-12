@@ -1,5 +1,6 @@
 import "./AccountInput.css";
 import parseSteamUrl from "../../utils/utils";
+import infoIcon from "../../assets/infoIcon.svg";
 import { useEffect, useState } from "react";
 
 export const AccountInput = ({ onSubmit }) => {
@@ -23,6 +24,10 @@ export const AccountInput = ({ onSubmit }) => {
     }, 150);
   }, [steamid]);
 
+  const openNewWindow = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
     <div className="steamid-form">
       <form className="steamid-form" onSubmit={handleSubmit}>
@@ -38,10 +43,24 @@ export const AccountInput = ({ onSubmit }) => {
             value={steamid}
           />
         </div>
-        <button className="steamid-btn" type="submit">
+        <button className="steamid-btn" id="steamid" type="submit">
           Submit
         </button>
       </form>
+
+      <a
+        href="#"
+        onClick={() =>
+          openNewWindow(
+            "https://help.steampowered.com/en/faqs/view/2816-BE67-5B69-0FEC"
+          )
+        }
+      >
+        <div className="findSteamIdSpan">
+          Where to find your steamid?
+          <img className="infoIcon" src={infoIcon} alt="info-icon" />
+        </div>
+      </a>
     </div>
   );
 };

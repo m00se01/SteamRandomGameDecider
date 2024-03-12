@@ -76,45 +76,17 @@ export const StartingPage = () => {
             To get started please enter your steamid in the box below
           </h2>
 
-          {/* <div className="startscreen-form-wrapper">
-            <form onSubmit={handleSubmit}>
-              <div>
-                {/* <label htmlFor="steamid">Steam ID: </label> }
-                <input
-                  id="steamid"
-                  required="true"
-                  placeholder="Enter your steamid or community-profile-url"
-                  type="text"
-                  name="steamid"
-                  onChange={change}
-                  value={steamid}
-                />
-              </div>
-
-              <button className="submit-btn" type="submit">
-                Submit
-              </button>
-            </form> */}
           <AccountInput onSubmit={handleSubmit} />
-          <a
-            href="#"
-            onClick={() =>
-              openNewWindow(
-                "https://help.steampowered.com/en/faqs/view/2816-BE67-5B69-0FEC"
-              )
-            }
-          >
-            <div className="findSteamIdSpan">
-              Where to find your steamid?
-              <img className="infoIcon" src={infoIcon} alt="info-icon" />
-            </div>
-          </a>
         </div>
 
         {/* Confirmation Modal */}
         <ReactModal
           className={"Modal"}
-          overlayClassName={"Overlay"}
+          overlayClassName={
+            isModalOpen
+              ? "Overlay Overlay--after-open"
+              : "Overlay Overlay--before-close"
+          }
           contentLabel={"Confirmation Modal"}
           shouldCloseOnEsc={true}
           isOpen={isModalOpen}
@@ -132,6 +104,10 @@ export const StartingPage = () => {
               setPlayerAvatar(playerData.avatarfull);
             }
           }, [playerData])}
+          closeTimeoutMS={300}
+          onRequestClose={() => {
+            setIsModalOpen(false);
+          }}
         >
           {isLoading ? (
             <Loading />

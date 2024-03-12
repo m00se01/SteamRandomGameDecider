@@ -107,6 +107,22 @@ app.get("/api/playerInfo", async (req, res) => {
   }
 });
 
+app.get("/api/gameStats", async (req, res) => {
+  try {
+    const appid = 250900;
+    const getStatsUrl = ` http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=${appid}&key=${KEY}&steamid=${STEAMID}`;
+    const apiResponse = await axios.get(getStatsUrl);
+
+    const data = apiResponse.data;
+    console.log(data);
+
+    res.status(200).json(data);
+  } catch (error) {
+    console.error("Error: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.post("/api/steamid", async (req, res) => {
   try {
     const steamid = req.body;
