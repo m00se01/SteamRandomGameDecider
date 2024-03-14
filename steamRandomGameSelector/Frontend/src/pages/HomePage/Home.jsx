@@ -6,6 +6,7 @@ import { GameReveal } from "../../components/GameReveal/GameReveal";
 import { Filters } from "../../components/Filters/Filters";
 import { Stats } from "../../components/Stats/Stats";
 import parseSteamUrl from "../../utils/utils";
+// import { getAllAchievments } from "../../utils/apiFunctions";
 import { AccountInput } from "../../components/AccountInput/AccountInput";
 import ReactModal from "react-modal";
 
@@ -13,7 +14,8 @@ export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
 
   const [gameData, setGameData] = useState({});
-  const [playerData, setPlayerData] = useState(null);
+  const [playerData, setPlayerData] = useState({});
+  // const [achievmentData, setAchievmentData] = useState([]);
   const [totalGames, setTotalGames] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [steamid, setSteamid] = useState("");
@@ -112,11 +114,15 @@ export const Home = () => {
     console.log(isModalOpen);
   };
 
-  // Game stats
-  // Achievments
-  // const getAchievments = () =>{
+  //GameStats
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await getAllAchievments(gameData.appid, playerData.steamid);
+  //     setAchievmentData(data);
+  //   };
 
-  // }
+  //   fetchData();
+  // }, [gameData, playerData]);
 
   const handleSubmit = async (steamid) => {
     const response = await fetch(steamidApiUrl, {
@@ -168,7 +174,15 @@ export const Home = () => {
             <button onClick={toggleAccountModal}>Switch Accounts</button>
           </div>
           {gameData && <GameReveal gameData={gameData} rollCount={rollCount} />}
-          <Stats playtime={gameData ? gameData.playtime_forever : 0} />
+
+          {/* TODO make the component be only the table instead of the container and the table */}
+          <Stats
+            playtime={gameData ? gameData.playtime_forever : 0}
+            // achievments={achievmentData ? achievmentData : []}
+            rollcount={rollCount}
+            appid={gameData ? gameData.appid : ""}
+            steamid={playerData.steamid}
+          />
 
           <ReactModal
             className={"Modal"}
@@ -183,6 +197,9 @@ export const Home = () => {
             closeTimeoutMS={300}
             onRequestClose={() => {
               setIsModalOpen(false);
+            }}
+            onAfterClose={() => {
+              setRollCount(3);
             }}
           >
             <div>

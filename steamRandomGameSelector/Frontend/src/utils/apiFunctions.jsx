@@ -40,3 +40,36 @@ export const fetchGameData = async (steamid) => {
     return false;
   }
 };
+
+export const getAllAchievments = async (appid, steamid) => {
+  try {
+    const response = await fetch(
+      `${urlBase}getAchievements/${appid}/${steamid}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Fetch error was not okay");
+    }
+
+    const data = await response.json();
+    console.log(`API CALL ${urlBase}getAchievements/${appid}: Data`, data);
+    return data;
+  } catch (error) {
+    console.error("Get Achievments Error: ", error);
+  }
+};
+
+export const getAchievmentsUnlocked = async (appid) => {
+  try {
+    const response = await fetch(`${urlBase}getAchievements/${appid}/unlocked`);
+
+    if (!response.ok) {
+      throw new Error("Fetch error was not okay");
+    }
+    const data = await response.json();
+    console.log(`API CALL ${urlBase}getAchievements/${appid}: Data`, data);
+    return data;
+  } catch (error) {
+    console.error("Get Achievments Error: ", error);
+  }
+};

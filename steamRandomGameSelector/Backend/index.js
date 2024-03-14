@@ -13,7 +13,7 @@ app.use(express.json());
 const KEY = process.env.STEAM_API_KEY;
 
 // For testing purposes using env
-let STEAMID = process.env.STEAMID;
+let STEAMID = "";
 
 app.get("/api/data", async (req, res) => {
   try {
@@ -107,15 +107,56 @@ app.get("/api/playerInfo", async (req, res) => {
   }
 });
 
-app.get("/api/gameStats", async (req, res) => {
+// Return achievments array
+app.get("/api/getAchievements/:steamid/:appid", async (req, res) => {
   try {
-    const appid = 250900;
-    const getStatsUrl = ` http://api.steampowered.com/ISteamUserStats/GetUserStatsForGame/v0002/?appid=${appid}&key=${KEY}&steamid=${STEAMID}`;
-    const apiResponse = await axios.get(getStatsUrl);
+    const appid = Number(req.params.appid);
+    const steamid = req.params.steamid;
+    const getAchievementsUrl = `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?steamid=${steamid}&key=${KEY}&appid=${appid}`;
+
+    const apiResponse = await axios
+      .get(getAchievementsUrl)
+      .catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
+        }
+        console.log(error.config);
+      });
+
+    const data = apiResponse.data.playerstats.achievements;
+
+    console.log(data);
+    res.status(200).json(data);
+  } catch (error) {
+    console.error("Error: ", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/api/getGlobalAchievmentPercentages/:appid", async (req, res) => {
+  // http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002
+  try {
+    const appid = Number(req.params.appid);
+    const steamid = req.params.steamid;
+    const url = `http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${appid}`;
+
+    const apiResponse = await axios.get(url);
 
     const data = apiResponse.data;
-    console.log(data);
 
+    console.log(data);
     res.status(200).json(data);
   } catch (error) {
     console.error("Error: ", error);

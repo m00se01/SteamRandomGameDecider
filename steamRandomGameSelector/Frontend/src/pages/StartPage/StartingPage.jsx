@@ -142,7 +142,7 @@ export const StartingPage = () => {
           Note: Inorder for us to access your game library, your profile must be
           set to public!{" "}
           <a
-            href="#"
+            href=""
             onClick={() =>
               openNewWindow(
                 "https://help.steampowered.com/en/faqs/view/588C-C67D-0251-C276"

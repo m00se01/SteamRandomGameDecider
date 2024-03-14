@@ -1,7 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Saira%20Condensed:700|Saira%20Condensed:400");
+
 .stats-content {
   display: flex;
   align-items: center;
   flex-direction: column;
+  font-family: "Saira Condensed";
 }
 
 .stats-table {
@@ -9,7 +12,7 @@
   border-collapse: collapse;
   border-radius: 0.5rem;
   text-align: center;
-  width: 75%;
+  width: 85%;
 }
 
 .stats-table th {
@@ -19,11 +22,16 @@
 }
 
 .stats-table td {
-  font-size: 20px;
+  font-size: 25px;
   padding: 10px;
 }
 
 .stats-table tr:nth-child(even) {
   color: var(--background);
   background-color: var(--accent);
+}
+
+.storepage-link {
+  color: white;
+  font-size: 25px;
 }

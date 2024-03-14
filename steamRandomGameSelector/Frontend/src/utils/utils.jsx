@@ -39,6 +39,10 @@ const parseSteamUrl = (url) => {
   }
 };
 
+export const openNewWindow = (url) => {
+  window.open(url, "_blank");
+};
+
 // const fetchPlayerData = () => {};
 
 // const fetchGameData = () => {};
