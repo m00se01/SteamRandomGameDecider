@@ -13,7 +13,7 @@ app.use(express.json());
 const KEY = process.env.STEAM_API_KEY;
 
 // For testing purposes using env
-let STEAMID = "";
+let STEAMID = process.env.STEAMID;
 
 app.get("/api/data", async (req, res) => {
   try {

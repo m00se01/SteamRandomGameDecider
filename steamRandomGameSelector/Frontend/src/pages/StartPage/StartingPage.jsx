@@ -53,6 +53,8 @@ export const StartingPage = () => {
       body: JSON.stringify({ steamid }),
     });
 
+    console.log("DEBUG: HANDLE SUBMIT STEAMID:", steamid);
+
     if (response.ok) {
       setIsModalOpen(true);
     } else if (response.status === 500) {

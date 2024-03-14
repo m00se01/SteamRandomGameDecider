@@ -6,102 +6,65 @@ import { GameReveal } from "../../components/GameReveal/GameReveal";
 import { Filters } from "../../components/Filters/Filters";
 import { Stats } from "../../components/Stats/Stats";
 import parseSteamUrl from "../../utils/utils";
-// import { getAllAchievments } from "../../utils/apiFunctions";
 import { AccountInput } from "../../components/AccountInput/AccountInput";
 import ReactModal from "react-modal";
+import {
+  fetchGameData,
+  fetchGamesCount,
+  fetchPlayerData,
+  fetchRandomGame,
+} from "../../utils/apiFunctions";
 
 export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
-
   const [gameData, setGameData] = useState({});
   const [playerData, setPlayerData] = useState({});
-  // const [achievmentData, setAchievmentData] = useState([]);
+  const [steamid, setSteamid] = useState("");
   const [totalGames, setTotalGames] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [steamid, setSteamid] = useState("");
+  // const [achievmentData, setAchievmentData] = useState([]);
 
   const steamidApiUrl = "http://localhost:8000/api/steamid";
-  const apiUrl = "http://localhost:8000/api/randomAll";
-  const playerInfoUrl = "http://localhost:8000/api/playerInfo";
-  const gamesCountUrl = "http://localhost:8000/api/data/gamesCount";
 
   // Fetch Player Data
-
-  const fetchPlayerData = async () => {
-    try {
-      const response = await fetch(playerInfoUrl);
-
-      if (!response.ok) {
-        throw new Error("Fetch Error was not ok");
-      }
-
-      const data = await response.json();
-
-      setPlayerData(data);
-    } catch (error) {
-      console.error("Fetch Error: ", error);
-    }
-  };
-
   useEffect(() => {
-    fetchPlayerData();
-    console.log(playerData);
+    const fetchData = async () => {
+      const data = await fetchPlayerData();
+      setPlayerData(data);
+    };
+
+    fetchData();
   }, [steamid]);
 
+  //Fetch Games Count
   useEffect(() => {
-    const gamesCount = async () => {
-      try {
-        const response = await fetch(gamesCountUrl);
-
-        if (!response.ok) {
-          throw new Error("Fetch Error was not ok");
-        }
-
-        const data = await response.json();
-
-        setTotalGames(data);
-      } catch (error) {
-        console.error("Fetch Error: ", error);
-      }
+    const fetchData = async () => {
+      const data = await fetchGamesCount();
+      setTotalGames(data);
     };
-    gamesCount();
+
+    fetchData();
   }, [playerData, gameData, steamid]);
 
-  // Fetch Game Data
-  useEffect(() => {
-    async () => {
-      try {
-        const response = await fetch(apiUrl);
+  // // Fetch Game Data
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const data = await fetchGameData(playerData.steamid);
+  //     setGameData(data);
+  //   };
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        setGameData(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Fetch Error: ", error);
-      }
-    };
-  }, [gameData, playerData, steamid]);
+  //   fetchData();
+  // }, [gameData, playerData, steamid]);
 
   const roll = async () => {
     if (rollCount > 0) {
-      try {
-        const response = await fetch(apiUrl);
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
+      const fetchData = async () => {
+        const data = await fetchRandomGame();
         setGameData(data);
-        setRollCount(rollCount - 1);
-        console.log(gameData);
-      } catch (error) {
-        console.error("Fetch Error: ", error);
-      }
+      };
+      fetchData();
+      console.log(gameData);
+      setRollCount(rollCount - 1);
     }
   };
 
@@ -113,16 +76,6 @@ export const Home = () => {
     setIsModalOpen((prev) => !prev);
     console.log(isModalOpen);
   };
-
-  //GameStats
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const data = await getAllAchievments(gameData.appid, playerData.steamid);
-  //     setAchievmentData(data);
-  //   };
-
-  //   fetchData();
-  // }, [gameData, playerData]);
 
   const handleSubmit = async (steamid) => {
     const response = await fetch(steamidApiUrl, {
@@ -136,6 +89,7 @@ export const Home = () => {
     if (response.ok) {
       setIsModalOpen(false);
       fetchPlayerData();
+      setSteamid(steamid);
     } else if (response.status === 500) {
       alert("Cannot Access Players Library");
     } else {
@@ -143,6 +97,7 @@ export const Home = () => {
     }
   };
 
+  // Parse Steamid
   useEffect(() => {
     setTimeout(() => {
       if (parseSteamUrl(steamid) != false) {
@@ -167,14 +122,11 @@ export const Home = () => {
                 <span>{playerData.personaname}</span>
               </div>
             )}
-
             <p>Games in library: {totalGames}</p>
-
             {/* Switch accounts implementation */}
             <button onClick={toggleAccountModal}>Switch Accounts</button>
           </div>
           {gameData && <GameReveal gameData={gameData} rollCount={rollCount} />}
-
           {/* TODO make the component be only the table instead of the container and the table */}
           <Stats
             playtime={gameData ? gameData.playtime_forever : 0}
@@ -183,6 +135,8 @@ export const Home = () => {
             appid={gameData ? gameData.appid : ""}
             steamid={playerData.steamid}
           />
+
+          <Filters />
 
           <ReactModal
             className={"Modal"}
@@ -219,6 +173,8 @@ export const Home = () => {
             <button className={".rounded-btn"} onClick={roll}>
               Roll
             </button>
+
+            <button>Change Filters</button>
           </div>
         </div>
 

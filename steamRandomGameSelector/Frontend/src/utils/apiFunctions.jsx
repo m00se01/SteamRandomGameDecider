@@ -1,21 +1,21 @@
-const urlBase = "http://localhost:8000/api/";
+const urlBase = "http://localhost:8000/api";
 
 export const fetchPlayerData = async () => {
   try {
-    const response = await fetch(`${urlBase}/randomAll`);
+    const response = await fetch(`${urlBase}/playerInfo`);
 
     if (!response.ok) {
       throw new Error("Fetch Error was not ok");
     }
 
     const data = await response.json();
-
     return data;
   } catch (error) {
-    console.error("Error: ", error);
+    console.error("Fetch Error: ", error);
   }
 };
 
+// Post request to change the game library for the
 export const fetchGameData = async (steamid) => {
   try {
     const response = await fetch(`${urlBase}/steamid`, {
@@ -41,10 +41,40 @@ export const fetchGameData = async (steamid) => {
   }
 };
 
+export const fetchGamesCount = async () => {
+  try {
+    const response = await fetch(`${urlBase}/data/gamesCount`);
+
+    if (!response.ok) {
+      throw new Error("Fetch Error was not ok");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fetch Error", error);
+  }
+};
+
+export const fetchRandomGame = async () => {
+  try {
+    const response = await fetch(`${urlBase}/randomAll`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fetch Error", error);
+  }
+};
+
 export const getAllAchievments = async (appid, steamid) => {
   try {
     const response = await fetch(
-      `${urlBase}getAchievements/${appid}/${steamid}`
+      `${urlBase}/getAchievements/${appid}/${steamid}`
     );
 
     if (!response.ok) {
@@ -52,7 +82,7 @@ export const getAllAchievments = async (appid, steamid) => {
     }
 
     const data = await response.json();
-    console.log(`API CALL ${urlBase}getAchievements/${appid}: Data`, data);
+    console.log(`API CALL ${urlBase}/getAchievements/${appid}: Data`, data);
     return data;
   } catch (error) {
     console.error("Get Achievments Error: ", error);
@@ -61,13 +91,15 @@ export const getAllAchievments = async (appid, steamid) => {
 
 export const getAchievmentsUnlocked = async (appid) => {
   try {
-    const response = await fetch(`${urlBase}getAchievements/${appid}/unlocked`);
+    const response = await fetch(
+      `${urlBase}/getAchievements/${appid}/unlocked`
+    );
 
     if (!response.ok) {
       throw new Error("Fetch error was not okay");
     }
     const data = await response.json();
-    console.log(`API CALL ${urlBase}getAchievements/${appid}: Data`, data);
+    console.log(`API CALL ${urlBase}/getAchievements/${appid}: Data`, data);
     return data;
   } catch (error) {
     console.error("Get Achievments Error: ", error);
