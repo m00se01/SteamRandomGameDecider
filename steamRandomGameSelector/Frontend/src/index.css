@@ -13,7 +13,12 @@
   --secondary: #324b69;
   --accent: #f3c52a;
 
-  --linearBackgroundAccent: linear-gradient(#071c36, #f3c52a);
+  --linearBackgroundAccent: linear-gradient(
+    135deg,
+    #1a1a2e 0%,
+    #16213e 50%,
+    #0f3460 100%
+  );
   --radialAccentBackground: radial-gradient(
     circle at center,
     #f3c52a,
@@ -21,7 +26,7 @@
     #071c36
   );
 }
-
+/* linear-gradient(#071c36, #f3c52a); */
 body {
   background-color: var(--background);
   font-family: "Saira Condensed";
@@ -106,6 +111,8 @@ span {
 }
 
 .box-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
   border: 2px solid white;
   border-radius: 1rem;
 }
