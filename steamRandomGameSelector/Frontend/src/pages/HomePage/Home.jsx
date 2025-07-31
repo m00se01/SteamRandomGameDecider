@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Home.css";
+import "../../index.css";
 import { Footer } from "../../components/Footer/Footer";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { GameReveal } from "../../components/GameReveal/GameReveal";
@@ -14,6 +15,7 @@ import {
   fetchPlayerData,
   fetchRandomGame,
 } from "../../utils/apiFunctions";
+import UserInfoCard from "../../components/Cards/UserInfoCard";
 
 export const Home = () => {
   const [rollCount, setRollCount] = useState(3);
@@ -26,6 +28,7 @@ export const Home = () => {
   // const [achievmentData, setAchievmentData] = useState([]);
 
   const steamidApiUrl = "http://localhost:8000/api/steamid";
+  const modalRef = useRef(isModalOpen);
 
   // Fetch Player Data
   useEffect(() => {
@@ -73,9 +76,12 @@ export const Home = () => {
     setRollCount(3);
   };
 
-  const toggleAccountModal = () => {
-    setIsModalOpen((prev) => !prev);
-    console.log(isModalOpen);
+  const openAccountModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeAccountModal = () => {
+    setIsModalOpen(false);
   };
 
   const toggleFiltersModal = () => {
@@ -119,18 +125,16 @@ export const Home = () => {
         <h1 className="main-title">Let Us Decide Your Fate</h1>
 
         <main className="hompage-main-content-section">
-          <div className="box-container user-info-section">
-            {/* Avatar and Username */}
-            {playerData && (
-              <div className="profile-info">
-                <img src={playerData.avatarfull} alt="profile-pic" />
-                <span>{playerData.personaname}</span>
-              </div>
-            )}
-            <p>Games in library: {totalGames}</p>
-            {/* Switch accounts implementation */}
-            <button onClick={toggleAccountModal}>Switch Accounts</button>
-          </div>
+          {playerData && (
+            <UserInfoCard
+              avatarImg={playerData.avatarfull}
+              username={playerData.personaname}
+              gameCount={totalGames}
+              modalRef={modalRef}
+              onClick={openAccountModal}
+            />
+          )}
+
           {gameData && <GameReveal gameData={gameData} rollCount={rollCount} />}
 
           {/* TODO make the component be only the table instead of the container and the table */}
@@ -166,7 +170,7 @@ export const Home = () => {
 
               <AccountInput onSubmit={handleSubmit} />
 
-              <button onClick={toggleAccountModal}>Close</button>
+              <button onClick={closeAccountModal}>Close</button>
             </div>
           </ReactModal>
         </main>
@@ -192,7 +196,7 @@ export const Home = () => {
           <div className="roll-container">
             <p className="roll-counter">Rolls Left: {rollCount} </p>
             <button onClick={resetRoll}>Reset</button>
-            <button className={".rounded-btn"} onClick={roll}>
+            <button className={"btn roll-btn "} onClick={roll}>
               Roll
             </button>
 

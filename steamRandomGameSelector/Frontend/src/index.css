@@ -62,9 +62,9 @@ body {
   --space-xxxxl: 5rem; /* 80px */
 
   /*  Border Radius */
-  --radius-sm: 5px;
-  --radius-md: 10px;
-  --radius-lg: 15px;
+  --radius-s: 5px;
+  --radius-m: 10px;
+  --radius-l: 15px;
   --radius-xl: 20px;
   --radius-xxl: 25px;
   --radius-circle: 50%;
@@ -150,7 +150,7 @@ body {
   padding: var(--space-m) var(--space-xl);
   text-align: center;
   margin: var(--space-xs);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-m);
   cursor: pointer;
   border: none;
   font-weight: var(--font-weight-bold);
@@ -190,6 +190,13 @@ body {
   color: var(--color-text-primary);
   transition: var(--transition-normal);
 }
+
+.roll-btn {
+  background-color: var(--color-primary-bg);
+  box-shadow: var(--shadow-glow);
+  text-transform: uppercase;
+}
+
 /* 
    Containers
 */

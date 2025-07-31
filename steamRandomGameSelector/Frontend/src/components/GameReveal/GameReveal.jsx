@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./GameReveal.css";
 import { Loading } from "../Loading/Loading";
+import Card from "../Cards/Card";
 
 export const GameReveal = (props) => {
   const { gameData, rollCount } = props;
@@ -24,7 +25,7 @@ export const GameReveal = (props) => {
 
   return (
     <>
-      <div className="box-container game-content">
+      <Card className="box-container game-content">
         {rollCount === 3 ? (
           <p>Click Roll to begin</p>
         ) : loading ? (
@@ -42,7 +43,7 @@ export const GameReveal = (props) => {
             </div>
           </div>
         )}
-      </div>
+      </Card>
     </>
   );
 };

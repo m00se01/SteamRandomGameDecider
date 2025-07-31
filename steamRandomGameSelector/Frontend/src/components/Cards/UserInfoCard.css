@@ -1,0 +1,8 @@
+.profile-info {
+  display: flex;
+  color: var(--color-primary);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-s);
+}

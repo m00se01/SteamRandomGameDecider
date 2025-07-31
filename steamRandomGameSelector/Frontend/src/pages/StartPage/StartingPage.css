@@ -43,7 +43,7 @@
   font-weight: var(--font-weight-bold);
   width: fit-content;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: var(--radius-m);
   text-transform: uppercase;
   letter-spacing: 2px;
   text-align: center;
@@ -57,7 +57,7 @@
   align-items: center;
   justify-content: center;
 
-  border-radius: 1rem;
+  border-radius: var(--radius-m);
   box-shadow: var(--shadow-glow);
 
   max-width: 40%;
@@ -83,7 +83,7 @@
   color: var(--color-text-main);
   font-weight: var(--font-weight-bold);
   padding: 5px;
-  margin: var(--space-sm);
+  margin: var(--space-s);
 }
 
 .note-tooltip-container a {
@@ -106,7 +106,7 @@
   height: 35px;
   text-align: center;
   color: var(--color-primary-red);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-s);
   font-size: 20px;
   font-weight: 800;
 }

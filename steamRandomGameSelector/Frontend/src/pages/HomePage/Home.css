@@ -1,28 +1,12 @@
-#root {
-  height: 100vh;
-}
-
 .home-wrapper {
-  background-color: var(--background);
+  background-color: var(--color-primary-bg);
 }
 
 .hompage-main-content-section {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr;
   gap: 20px;
   margin: 10px;
-}
-
-.user-info-section {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.filters-content {
-  position: relative;
 }
 
 .roll-content {
