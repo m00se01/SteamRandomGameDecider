@@ -1,4 +1,5 @@
 import "./StartingPage.css";
+import "../../index.css";
 import "./StartingPageModal.css";
 import { Footer } from "../../components/Footer/Footer";
 import { Link, redirect, useNavigate, Navigate } from "react-router-dom";
@@ -137,8 +138,9 @@ export const StartingPage = () => {
           )}
 
           <p>Is this who you were looking for?</p>
-          <div>
+          <div className="modal-btn-container">
             <button
+              className="btn menu-btn"
               onClick={() => {
                 navigate("/home");
               }}
@@ -147,6 +149,7 @@ export const StartingPage = () => {
             </button>
 
             <button
+              className="btn menu-btn"
               onClick={() => {
                 setIsModalOpen(false);
               }}

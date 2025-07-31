@@ -1,27 +1,35 @@
 .Modal {
-  background: var(--color-bg-deep);
+  background: var(--color-glass);
+  backdrop-filter: blur(10px);
   color: white;
   display: flex;
   flex-direction: column;
-  position: absolute;
   z-index: 999;
-  top: 8vh;
-  left: 25vw;
+
+  margin: 0 auto;
 
   border-radius: 1rem;
   border: 2px solid white;
   box-shadow: 1px 1px 3px white;
+  min-height: 100vh;
   height: 65vh;
-  width: 50vw;
+  width: 60vw;
 
   text-align: center;
   justify-content: center;
   align-items: center;
 }
 
+.Modal .modal-btn-container {
+  display: flex;
+  margin: var(--space-l) var(--space-m);
+  gap: var(--space-m);
+}
+
 .Modal .profile {
   border-radius: 0.5rem;
   border: 3px solid white;
+  margin: 10px 0px;
 }
 
 .Overlay {
@@ -30,7 +38,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--background);
+  background-color: var(--color-glass);
 }
 
 .Overlay--after-open {

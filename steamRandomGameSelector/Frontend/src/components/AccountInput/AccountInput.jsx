@@ -43,7 +43,7 @@ export const AccountInput = ({ onSubmit }) => {
             value={steamid}
           />
         </div>
-        <button className="steamid-btn" id="steamid" type="submit">
+        <button className="btn steamid-btn" id="steamid" type="submit">
           Submit
         </button>
       </form>

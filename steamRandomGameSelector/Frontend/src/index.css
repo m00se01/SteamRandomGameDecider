@@ -145,26 +145,51 @@ body {
 /* 
    Buttons
 */
-button {
-  color: var(--color-text-primary);
-  font-weight: var(--font-weight-medium);
-  padding: var(--spacing-m) var(--spacing-xl);
-  margin: var(--spacing-xs);
-  border: none;
-  font-size: var(--font-size-l);
+
+.btn {
+  padding: var(--space-m) var(--space-xl);
+  text-align: center;
+  margin: var(--space-xs);
   border-radius: var(--radius-md);
   cursor: pointer;
+  border: none;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-l);
   box-shadow: var(--shadow-button);
+  color: var(--color-text-primary);
+}
+
+.primary-btn {
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-l);
   transition: var(--transition-normal);
 }
 
-button:hover {
+.primary-btn:hover {
   transform: scale(1.05);
   background-color: #1560b6;
   color: var(--color-text-primary);
   transition: var(--transition-normal);
 }
 
+.menu-btn {
+  background-color: var(--color-secondary);
+  text-align: center;
+  margin: var(--space-s);
+  min-width: fit-content;
+  width: 10rem;
+  padding: var(--space-m);
+  box-shadow: var(--shadow-glow);
+}
+
+.menu-btn:hover {
+  background-color: var(--color-primary);
+  transform: scale(1.05);
+  color: var(--color-text-primary);
+  transition: var(--transition-normal);
+}
 /* 
    Containers
 */
