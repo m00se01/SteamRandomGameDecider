@@ -36,7 +36,7 @@ export const AccountInput = ({ onSubmit }) => {
             className="steamid-input"
             id="steamid"
             required={true}
-            placeholder="Enter your steamid or community-profile-url"
+            placeholder="eg. 76561198000000000 or https://steamcommunity.com/id/username"
             type="text"
             name="steamid"
             onChange={handleChange}

@@ -1,5 +1,5 @@
 .Modal {
-  background-color: var(--background);
+  background: var(--color-bg-deep);
   color: white;
   display: flex;
   flex-direction: column;

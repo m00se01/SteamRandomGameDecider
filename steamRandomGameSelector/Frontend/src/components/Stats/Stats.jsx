@@ -1,4 +1,5 @@
 import "./Stats.css";
+import Card from "../Cards/Card";
 import { openNewWindow } from "../../utils/utils";
 
 export const Stats = ({ steamid, playtime, achievments, rollcount, appid }) => {
@@ -13,41 +14,43 @@ export const Stats = ({ steamid, playtime, achievments, rollcount, appid }) => {
   //   : 0;
 
   return (
-    <div className="box-container stats-content">
-      <h2>Game Stats</h2>
+    <Card>
+      <div className="box-container stats-content">
+        <h2>Game Stats</h2>
 
-      {rollcount === 3 ? (
-        " "
-      ) : (
-        <div className={"stats-content"}>
-          <table className="stats-table">
-            <tr>
-              <th>Total Gametime</th>
-              <td>{parseTime(playtime)} Hours</td>
-            </tr>
-            {/* <tr>
+        {rollcount === 3 ? (
+          " "
+        ) : (
+          <div className={"stats-content"}>
+            <table className="stats-table">
+              <tr>
+                <th>Total Gametime</th>
+                <td>{parseTime(playtime)} Hours</td>
+              </tr>
+              {/* <tr>
               <th>Achievments Unlocked</th>
               <td>{`${unlocked} / ${total}`}</td>
             </tr> */}
-            <tr>
-              <th>Debug</th>
-              <td>{appid}</td>
-            </tr>
-            <tr>
-              <th>Debug</th>
-              <td>{steamid}</td>
-            </tr>
-          </table>
+              <tr>
+                <th>Debug</th>
+                <td>{appid}</td>
+              </tr>
+              <tr>
+                <th>Debug</th>
+                <td>{steamid}</td>
+              </tr>
+            </table>
 
-          <button
-            onClick={() =>
-              openNewWindow(`https://store.steampowered.com/app/${appid}/`)
-            }
-          >
-            Visit Storepage
-          </button>
-        </div>
-      )}
-    </div>
+            <button
+              onClick={() =>
+                openNewWindow(`https://store.steampowered.com/app/${appid}/`)
+              }
+            >
+              Visit Storepage
+            </button>
+          </div>
+        )}
+      </div>
+    </Card>
   );
 };

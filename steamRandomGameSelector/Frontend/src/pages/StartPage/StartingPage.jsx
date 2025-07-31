@@ -72,13 +72,29 @@ export const StartingPage = () => {
     <>
       <div className="startpage-container">
         <h1 className="startpage-header">Welcome to SteamRoll</h1>
+        <h2 className="steamid-input-container-header">
+          To get started please enter your <span>steamid </span>or{" "}
+          <span>community profile url </span>
+          in the box below
+        </h2>
 
         <div className="steamid-input-container">
-          <h2 className="steamid-input-container-header">
-            To get started please enter your steamid in the box below
-          </h2>
-
           <AccountInput onSubmit={handleSubmit} />
+        </div>
+
+        <div className="note-tooltip-container">
+          Note: Inorder for us to access your game library, your profile must be
+          set to public! for more info
+          <a
+            href=""
+            onClick={() =>
+              openNewWindow(
+                "https://help.steampowered.com/en/faqs/view/588C-C67D-0251-C276"
+              )
+            }
+          >
+            click here
+          </a>
         </div>
 
         {/* Confirmation Modal */}
@@ -139,21 +155,6 @@ export const StartingPage = () => {
             </button>
           </div>
         </ReactModal>
-
-        <span className="note">
-          Note: Inorder for us to access your game library, your profile must be
-          set to public!{" "}
-          <a
-            href=""
-            onClick={() =>
-              openNewWindow(
-                "https://help.steampowered.com/en/faqs/view/588C-C67D-0251-C276"
-              )
-            }
-          >
-            <img className="infoIcon" src={infoIcon} alt="info-icon" />{" "}
-          </a>
-        </span>
       </div>
       <Footer />
     </>

@@ -1,0 +1,15 @@
+.FilterModal {
+  background-color: var(--background);
+  color: white;
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+  z-index: 999;
+  top: 8vh;
+  left: 35vw;
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}

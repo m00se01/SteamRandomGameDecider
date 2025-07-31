@@ -22,6 +22,7 @@ export const Home = () => {
   const [steamid, setSteamid] = useState("");
   const [totalGames, setTotalGames] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
   // const [achievmentData, setAchievmentData] = useState([]);
 
   const steamidApiUrl = "http://localhost:8000/api/steamid";
@@ -77,6 +78,10 @@ export const Home = () => {
     console.log(isModalOpen);
   };
 
+  const toggleFiltersModal = () => {
+    setIsFiltersModalOpen((prev) => !prev);
+  };
+
   const handleSubmit = async (steamid) => {
     const response = await fetch(steamidApiUrl, {
       method: "POST",
@@ -127,6 +132,7 @@ export const Home = () => {
             <button onClick={toggleAccountModal}>Switch Accounts</button>
           </div>
           {gameData && <GameReveal gameData={gameData} rollCount={rollCount} />}
+
           {/* TODO make the component be only the table instead of the container and the table */}
           <Stats
             playtime={gameData ? gameData.playtime_forever : 0}
@@ -136,8 +142,7 @@ export const Home = () => {
             steamid={playerData.steamid}
           />
 
-          <Filters />
-
+          {/* Switch Accounts Modal */}
           <ReactModal
             className={"Modal"}
             overlayClassName={
@@ -145,10 +150,10 @@ export const Home = () => {
                 ? "Overlay Overlay--after-open"
                 : "Overlay Overlay--before-close"
             }
-            contentLabel={"Confirmation Modal"}
+            contentLabel={"Switch Account Confirmation Modal"}
             shouldCloseOnEsc={true}
             isOpen={isModalOpen}
-            closeTimeoutMS={300}
+            closeTimeoutMS={350}
             onRequestClose={() => {
               setIsModalOpen(false);
             }}
@@ -166,6 +171,23 @@ export const Home = () => {
           </ReactModal>
         </main>
 
+        <ReactModal
+          className={"FilterModal"}
+          overlayClassName={
+            isFiltersModalOpen
+              ? "Overlay Overlay--after-open"
+              : "Overlay Overlay--before-close"
+          }
+          contentLabel={"Change Filters Modal"}
+          isOpen={isFiltersModalOpen}
+          closeTimeoutMS={400}
+          shouldCloseOnEsc={true}
+        >
+          {/* TODO: onSubmit */}
+          <Filters />
+          <button onClick={toggleFiltersModal}>Close</button>
+        </ReactModal>
+
         <div className="box-container roll-content">
           <div className="roll-container">
             <p className="roll-counter">Rolls Left: {rollCount} </p>
@@ -174,7 +196,7 @@ export const Home = () => {
               Roll
             </button>
 
-            <button>Change Filters</button>
+            <button onClick={toggleFiltersModal}>Change Filters</button>
           </div>
         </div>
 
