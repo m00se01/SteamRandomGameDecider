@@ -197,16 +197,19 @@ body {
   text-transform: uppercase;
 }
 
-/* 
-   Containers
-*/
-.box-container {
-  background: var(--color-surface-glass);
-  backdrop-filter: blur(10px);
-  border: 2px solid var(--color-border-light);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-xxl);
-  margin: var(--spacing-xxxl) auto;
-  width: fit-content;
-  box-shadow: var(--shadow-card);
+/* Other Utilities */
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

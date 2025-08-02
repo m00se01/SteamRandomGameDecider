@@ -4,7 +4,7 @@ import "../../index.css";
 import Card from "../Cards/Card";
 const UserInfoCard = ({ username, gameCount, avatarImg, onClick }) => {
   return (
-    <Card>
+    <Card className={"flex-center flex-column"}>
       <h3>{username}</h3>
       <div className="profile-info">
         <img src={avatarImg} alt="profile-pic" />

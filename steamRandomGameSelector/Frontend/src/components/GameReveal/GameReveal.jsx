@@ -25,19 +25,25 @@ export const GameReveal = (props) => {
 
   return (
     <>
-      <Card className="box-container game-content">
+      <Card className="game-content">
         {rollCount === 3 ? (
           <p>Click Roll to begin</p>
         ) : loading ? (
           <Loading />
         ) : (
-          <div>
-            <img src={boxArtUrl} alt={gameData.name} className="gameBoxArt" />
-            <div className="gameTitleWithIcon">
+          <div className="game-info">
+            <div className="box-art">
+              <img
+                src={boxArtUrl}
+                alt={gameData.name}
+                className="box-art-img"
+              />
+            </div>
+            <div className="game-title-with-icon">
               <img
                 src={iconUrlTemplate}
                 alt={gameData.name}
-                className="gameIcon"
+                className="game-icon"
               />
               <p>{gameData.name}</p>
             </div>

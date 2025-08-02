@@ -4,24 +4,80 @@
   justify-content: center;
   align-items: center;
 
+  background: green;
+
   min-height: 600px;
 }
 
 /* TODO: Change box art size based on the container size */
-.gameBoxArt {
+
+.box-art {
   margin: 20px auto;
   height: 300px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border-radius: 20px;
+  max-height: 300px;
+  max-width: 200px;
+  border-radius: var(--radius-l);
   transition: transform 0.3s ease;
+  position: relative;
+  background: var(--color-primary-bg);
 }
 
-.gameBoxArt:hover {
+.box-art-img {
+  position: relative;
+  max-height: 300px;
+  max-width: 200px;
+  border-radius: inherit;
+}
+
+/* animated glowing border */
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotation {
+  0% {
+    --gradient-angle: 0deg;
+  }
+  100% {
+    --gradient-angle: 360deg;
+  }
+}
+
+.box-art::after,
+.box-art::before {
+  --gradient-angle: 0deg;
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -0.3rem;
+  border-radius: inherit;
+  animation: rotation 20s linear infinite;
+
+  background: conic-gradient(
+    from var(--gradient-angle),
+    #1560b6,
+    var(--color-primary),
+    var(--color-primary-bg),
+    #00bfff,
+    var(--color-primary-bg),
+    #1560b6,
+    var(--color-primary)
+  );
+  filter: blur(3rem);
+}
+
+.box-art::after {
+  filter: blur(3rem);
+}
+
+.box-art-img:hover {
   transform: scale(1.1);
   transition: transform 250ms ease-out;
 }
 
-.gameTitleWithIcon {
+.game-title-with-icon {
   display: flex;
   justify-content: center;
   padding: 5px;
@@ -29,12 +85,8 @@
   gap: 0.5rem;
 }
 
-.gameIcon {
+.game-icon {
   position: relative;
   border-radius: 8px;
-  box-shadow: 0px 0px 5px black;
-}
-
-p {
-  font-size: 2em;
+  box-shadow: var(--shadow-glow);
 }
